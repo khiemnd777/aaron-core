@@ -1,0 +1,6 @@
+﻿@using Telerik.Web.Mvc.UI
+
+﻿@(Html.Telerik().DropDownList()
+    .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(""))
+    .BindTo((SelectList)ViewData[ViewData.TemplateInfo.GetFullHtmlFieldName("") + "_Data"])
+)

@@ -1,0 +1,123 @@
+﻿@model Aaron.Admin.Models.Settings.CatalogSettingsModel
+@using Telerik.Web.Mvc.UI
+@{
+    ViewBag.Title = "Thiết lập Danh mục";
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            Thiết lập Danh mục
+        </div>
+        <div class="options">
+            <input type="submit" value="Save" class="t-button" />
+        </div>
+    </div>
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.AllowAutoUpload):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.AllowAutoUpload)
+                @Html.ValidationMessageFor(model => model.AllowAutoUpload)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.AllowUploadMultiFile):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.AllowUploadMultiFile)
+                @Html.ValidationMessageFor(model => model.AllowUploadMultiFile)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.AvatarDimension):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.AvatarDimension)
+                @Html.ValidationMessageFor(model => model.AvatarDimension)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.DefaultAvatar):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.DefaultAvatar)
+                @Html.ValidationMessageFor(model => model.DefaultAvatar)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.DefaultCatalogItemsOnPage):
+            </td>
+            <td class="adminData">
+                @(Html.Telerik().IntegerTextBoxFor(model => model.DefaultCatalogItemsOnPage)
+                    .MinValue(1)
+                    .Value(Model.DefaultCatalogItemsOnPage))
+                @Html.ValidationMessageFor(model => model.DefaultCatalogItemsOnPage)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.DefaultGenericCatalogIcon):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.DefaultGenericCatalogIcon)
+                @Html.ValidationMessageFor(model => model.DefaultGenericCatalogIcon)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.DefaultGenericCatalogItemsOnPage):
+            </td>
+            <td class="adminData">
+                @(Html.Telerik().IntegerTextBoxFor(model => model.DefaultGenericCatalogItemsOnPage)
+                    .MinValue(1)
+                    .Value(Model.DefaultGenericCatalogItemsOnPage))
+                @Html.ValidationMessageFor(model => model.DefaultGenericCatalogItemsOnPage)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.DefaultSizeOnMenu):
+            </td>
+            <td class="adminData">
+                @(Html.Telerik().IntegerTextBoxFor(model => model.DefaultSizeOnMenu)
+                    .MinValue(1)
+                    .Value(Model.DefaultSizeOnMenu))
+                @Html.ValidationMessageFor(model => model.DefaultSizeOnMenu)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.GenericCatalogIconPath):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.GenericCatalogIconPath)
+                @Html.ValidationMessageFor(model => model.GenericCatalogIconPath)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.IconDimension):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.IconDimension)
+                @Html.ValidationMessageFor(model => model.IconDimension)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.ShowShareButton):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.ShowShareButton)
+                @Html.ValidationMessageFor(model => model.ShowShareButton)
+            </td>
+        </tr>
+    </table>
+}

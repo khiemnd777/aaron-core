@@ -1,0 +1,7 @@
+<configuration>
+	<appSettings>
+		<add key="dependencyResolverTypeName" value="Aaron.Registrar.KernelRegistrar, Aaron.Registrar" />
+    <add key="redirectToActionAfterInstall" value="Home/Index" />
+	</appSettings>
+</configuration>
+  

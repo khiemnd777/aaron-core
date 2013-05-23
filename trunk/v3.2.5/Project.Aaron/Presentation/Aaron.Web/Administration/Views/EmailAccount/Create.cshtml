@@ -1,0 +1,18 @@
+﻿@model Aaron.Admin.Models.Messages.EmailAccountModel
+@{
+    //page title
+    ViewBag.Title = "Thêm email mới";
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <img src="@Url.Content("~/Administration/Content/images/ico-configuration.png")" alt="" />
+            Thêm email mới @Html.ActionLink("(Trở về danh sách email)", "List")
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="t-button" value="Lưu" />
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model)
+}

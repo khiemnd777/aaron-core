@@ -1,0 +1,48 @@
+﻿@model NoticeModel
+@using Telerik.Web.Mvc.UI
+@using Aaron.Admin.Models.Common;
+@{
+    ViewBag.Title = "Chi tiết thông báo " + Model.Name;
+}
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <td class="section-header">
+        <td class="title">
+            Chi tiết thông báo @Model.Name | @Html.ActionLink("Back to List", "Index")
+        </td>
+        <td class="options">
+            <input type="submit" value="Lưu" class="t-button" />
+        </td>
+    </td>
+    <table class="adminContent">
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Name)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Content)
+        </td>
+        <td class="adminData">
+            @Html.Telerik().EditorFor(model =>model.Content).Encode(false).Tools(tools=>tools.ViewHTML()) 
+            @Html.ValidationMessageFor(model => model.Content)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.CreationDate)
+        </td>
+        <td class="adminData">
+            @Html.DisplayFor(model => model.CreationDate)
+        </td>
+        </tr>
+        @Html.HiddenFor(model => model.Id)
+    </table>
+}
+
+

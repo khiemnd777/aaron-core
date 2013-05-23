@@ -1,0 +1,19 @@
+﻿@model Aaron.Admin.Models.Catalogs.GenericCatalogModel
+
+@{
+    ViewBag.Title = string.Format("Chi tiết danh mục động - {0}", Model.Name);
+}
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            Chi tiết danh mục động - @Model.Name | @Html.ActionLink("Back to list", "List")
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="t-button" value="Save" />
+            <a class="t-button" href="@Url.Content("~/GenericCatalog/Delete/")@Model.Id">Delete</a>
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model)
+}

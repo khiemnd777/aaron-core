@@ -1,0 +1,2 @@
+DataProvider:SqlServer
+DataConnectionString:Data Source=.\SQLExpress;Initial Catalog=HOHO;Integrated Security=True;Persist Security Info=False;MultipleActiveResultSets=True

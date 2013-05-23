@@ -1,0 +1,108 @@
+﻿@model IEnumerable<Aaron.Admin.Models.Accounts.AccountListModel>
+@using Telerik.Web.Mvc.UI;
+
+@{
+    ViewBag.Title = "Danh sách Tài khoản";
+}
+
+<div class="section-header">
+    <div class="title">
+        Danh sách Tài khoản
+    </div>
+    <div class="options">
+        <a href="@Url.Action("Create")" class="t-button">Add new</a>
+    </div>
+</div>
+
+<table class="adminContent">
+    <tr>
+        <td>
+        @(Html.Telerik().Grid<Aaron.Admin.Models.Accounts.AccountListModel>()
+                    .Name("generic-catalogs-grid")
+                    .DataKeys(x => x.Add(y => y.Id).RouteKey("Id"))
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.Email)
+                            .Width(150);
+                        columns.Bound(x => x.AccountRoleNames)
+                            .Width(220);
+                        columns.Bound(x => x.Active)
+                            .Width(50)
+                            .Template(x => x.Active.ToString().ToLower());
+                        columns.Bound(x => x.CreationDate)
+                            .Width(100);
+                        columns.Bound(x => x.LastestUpdatedDate)
+                            .Width(100);
+                        columns.Bound(x => x.Id)
+                            //.Template(x => Html.ActionLink("Edit", "Edit", new { id = x.Id }))
+                            .ClientTemplate("<a href=\"Edit/<#= Id #>\">Edit</a>")
+                            .Width(50)
+                            .HeaderTemplate("Edit");
+                    })
+                    //.Pageable(settings => settings.Total(Model.Total).PageSize(5).Position(GridPagerPosition.Both))
+                    .DataBinding(dataBinding =>
+                    {
+                        dataBinding.Ajax().Select("List", "Account");
+                    })
+                    .ClientEvents(x => x.OnError("grid_onError"))
+                    .Pageable(x => x.Style(GridPagerStyles.NextPreviousAndNumeric | GridPagerStyles.PageSizeDropDown))
+                    .Scrollable(x => x.Height("auto"))
+                    .Sortable()
+                    .Resizable(x => x.Columns(true))
+                    .Filterable()        
+                    )
+                <script type="text/javascript">
+                    function grid_onError(e) {
+                        alert(e.XMLHttpRequest.responseText);
+                        e.preventDefault();
+                    }
+                </script>
+        </td>
+    </tr>
+</table>
+
+@*<table class="adminContent">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Password
+        </th>
+        <th>
+            Active
+        </th>
+        <th>
+            AccountRoleNames
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountRoleNames)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>*@

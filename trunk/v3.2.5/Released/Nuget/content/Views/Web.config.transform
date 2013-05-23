@@ -1,0 +1,10 @@
+﻿<configuration>
+  <system.web.webPages.razor>
+    <pages>
+      <namespaces>
+        <add namespace="Aaron.Core.Web"/>
+        <add namespace="Aaron.Core.Web.UI"/>
+      </namespaces>
+    </pages>
+  </system.web.webPages.razor>
+</configuration>

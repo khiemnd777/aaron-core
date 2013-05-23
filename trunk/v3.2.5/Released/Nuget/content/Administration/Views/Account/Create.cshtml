@@ -1,0 +1,18 @@
+﻿@model Aaron.Admin.Models.Accounts.AccountModel
+
+@{
+    ViewBag.Title = "Tạo tài khoản";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            Tạo tài khoản | @Html.ActionLink("Back to List", "Index")
+        </div>
+        <div class="options">
+            <input type="submit" value="Save" class="t-button" />
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model);
+}

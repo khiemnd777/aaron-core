@@ -1,0 +1,75 @@
+﻿@model Aaron.Admin.Models.Settings.SeoSettingsModel
+@using Telerik.Web.Mvc.UI
+@{
+    ViewBag.Title = "Cấu hình Seo";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="section-header">
+        <div class="title">
+            Cấu hình Seo
+        </div>
+        <div class="options">
+            <input type="submit" value="Lưu" class="t-button" />
+        </div>
+    </div>
+    <table class="adminContent">
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.PageTitleSeparator)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.PageTitleSeparator)
+            @Html.ValidationMessageFor(model => model.PageTitleSeparator)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.DefaultTitle)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.DefaultTitle)
+            @Html.ValidationMessageFor(model => model.DefaultTitle)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.DefaultMetaKeywords)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.DefaultMetaKeywords)
+            @Html.ValidationMessageFor(model => model.DefaultMetaKeywords)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.DefaultMetaDescription)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.DefaultMetaDescription)
+            @Html.ValidationMessageFor(model => model.DefaultMetaDescription)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.PageTitleSeoAdjustment)
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().DropDownListFor(model => model.PageTitleSeoAdjustment)
+                .BindTo(Model.PageTitleSeoAdjustmentValues))
+            @Html.ValidationMessageFor(model => model.DefaultMetaDescription)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.CanonicalUrlsEnabled)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.CanonicalUrlsEnabled)
+            @Html.ValidationMessageFor(model => model.CanonicalUrlsEnabled)
+        </td>
+        </tr>
+    </table>
+}

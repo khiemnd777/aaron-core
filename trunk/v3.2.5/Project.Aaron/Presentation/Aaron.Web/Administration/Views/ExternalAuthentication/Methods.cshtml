@@ -1,0 +1,59 @@
+﻿@model Telerik.Web.Mvc.GridModel<AuthenticationMethodModel>
+@using Telerik.Web.Mvc.UI;
+@using Aaron.Admin.Models.ExternalAuthentication;
+@{
+    //page title
+    ViewBag.Title = "Phương thức truy xuất mở rộng";
+}
+<div class="section-header">
+    <div class="title">
+        <img src="@Url.Content("~/Administration/Content/images/ico-configuration.png")" alt="" />
+        Phương thức truy xuất mở rộng
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<AuthenticationMethodModel>()
+                    .Name("authenticationmethods-grid")
+                    .DataKeys(x =>
+                    {
+                        x.Add(y => y.SystemName).RouteKey("systemName");
+                    })
+                    .BindTo(Model.Data)
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.FriendlyName)
+                            .Width(150)
+                            .ReadOnly();
+                        columns.Bound(x => x.SystemName).Width(150).ReadOnly();
+                        columns.Bound(x => x.DisplayOrder)
+                            .Width(100);
+                        columns.Bound(x => x.IsActive)
+                            .Template(
+                                @<img alt="" src="@Url.Content("~/Administration/Content/images/active-" + item.IsActive.ToString().ToLowerInvariant() + ".gif")" />
+                            )
+                            .ClientTemplate("<img alt='' src='" + Url.Content("~/Administration/Content/images/") + "active-<#= IsActive #>.gif' />")
+                            .Width(100);
+                        columns.Template(
+                                @<div>
+                                    @Html.ActionLink("Cấu hình", "ConfigureMethod", new { systemName = item.SystemName })
+                                </div>
+                            )
+                            .ClientTemplate("<a href=\"ConfigureMethod?systemName=<#= SystemName #>\">Cấu hình</a>")
+                            .Width(100)
+                            .Title("Cấu hình");
+                        columns.Command(commands =>
+                        {
+                            commands.Edit().Text("Chỉnh sửa");
+                        }).Width(100).Title("Chỉnh sửa");
+                    })
+                    .DataBinding(dataBinding =>
+                    {
+                        dataBinding.Ajax().Select("Methods", "ExternalAuthentication")
+                            .Update("MethodUpdate", "ExternalAuthentication");
+                    })
+                    .EnableCustomBinding(true))
+        </td>
+    </tr>
+</table>

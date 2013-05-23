@@ -1,0 +1,190 @@
+﻿@model Aaron.Admin.Models.Catalogs.GenericCatalogModel
+@using System.Globalization;
+@using Aaron.Core;
+@using Aaron.Core.Infrastructure;
+@using Telerik.Web.Mvc.UI;
+
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.Id)
+@Html.Telerik().TabStrip().Name("poll-edit").Items(x =>
+{
+    x.Add().Text("Chi tiết").Content(TabInfo().ToHtmlString()).Selected(true);
+    x.Add().Text("Thuộc tính").Content(TabAttribute().ToHtmlString());
+
+})
+
+@helper TabInfo()
+    {
+    <table>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Name)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Icon)
+            
+        </td>
+        <td class="adminData">
+            @if(Model.OldFilePath != null &&  !string.Empty.Equals(Model.OldFilePath))
+            {
+                var icon_Dm = IoC.Resolve<Aaron.Core.Domain.Catalogs.CatalogSettings>().IconDimension;
+                var icon_wh = icon_Dm != null && !string.Empty.Equals(icon_Dm) ? icon_Dm.ToImageDimension() : new ImageDimension { Width = 10, Height = 10 };
+                <input type="image" src="@Url.Content(Model.OldFilePath)" width="@icon_wh.Width" height="@icon_wh.Height" />
+                @Html.HiddenFor(model => model.OldFilePath);
+            }
+            @(Html.Telerik().Upload()
+            .Name("iconAttachments")
+            .Multiple(IoC.Resolve<Aaron.Core.Domain.Catalogs.CatalogSettings>().AllowUploadMultiFile)
+            .Async(async => async
+                    .Save("SaveFileUpload", "GenericCatalog")
+                    .Remove("RemoveFileUpload", "GenericCatalog")
+                    .AutoUpload(IoC.Resolve<Aaron.Core.Domain.Catalogs.CatalogSettings>().AllowAutoUpload)))
+
+            @*@Html.ValidationMessageFor(model => model.Icon)*@
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.ItemOnPage)
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(m => m.ItemOnPage)
+                .MinValue(0)
+                .MaxValue(100))
+            @Html.ValidationMessageFor(model => model.ItemOnPage)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.SizeOnMenu)
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(m => m.SizeOnMenu)
+                .MinValue(0)
+                .MaxValue(100))
+            @Html.ValidationMessageFor(model => model.SizeOnMenu)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Published)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.Published)
+            @Html.ValidationMessageFor(model => model.Published)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.DisplayOrder)
+        </td>
+         <td class="adminData">
+             @(Html.Telerik().IntegerTextBoxFor(m => m.DisplayOrder)
+                .MinValue(0)
+                .MaxValue(100))
+             @Html.ValidationMessageFor(model => model.DisplayOrder)
+         </td>
+         </tr>
+         <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.BlockViewId)
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().DropDownListFor(b => b.BlockViewId)
+                    .BindTo(new SelectList((System.Collections.IEnumerable)ViewData["BlockViews"], "Key", "Name")))
+            @Html.ValidationMessageFor(model => model.BlockViewId)
+        </td>
+        </tr>
+        <tr>
+         <td class="adminTitle">
+            @Html.LabelFor(model => model.TemplateId)   
+        </td>
+         <td class="adminData">
+             @(Html.Telerik().DropDownListFor(t => t.TemplateId)
+                                    .BindTo(new SelectList((System.Collections.IEnumerable)ViewData["TemplateList"], "TemplateId", "TemplateName")))
+             @Html.ValidationMessageFor(model => model.TemplateId)
+         </td>
+         </tr>
+    </table>
+}
+
+@helper TabAttribute()
+    {
+    if (Model.Id > 0)
+    {
+        var entity = new Aaron.Core.Domain.Catalogs.GenericCatalogAttribute();
+
+        var controlTypeModelList = entity.ControlType.ToEnumList();
+    <table class="adminContent">
+        <tr>
+            <td>
+                @(Html.Telerik().Grid<Aaron.Admin.Models.Catalogs.GenericCatalogAttributeModel>()
+                    .Name("attribute-grid")
+                    .DataKeys(x =>
+                    {
+                        x.Add(y => y.Id).RouteKey("Id");
+                        x.Add(y => y.GenericCatalogId).RouteKey("GenericCatalogId");
+                    })
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.Name)
+                            .Width(250);
+                        columns.Bound(x => x.SystemName)
+                            .ReadOnly()
+                            .Width(250);
+                        columns.Bound(x => x.DisplayOrder)
+                            .Width(170);
+                        columns.Bound(x => x.Published)
+                            .Width(100)
+                            .Template(x => x.Published.ToString().ToLower());
+                        columns.ForeignKey(x => x.ControlTypeId, new SelectList((System.Collections.IEnumerable) ViewData["ControlTypes"], "Key", "Name")).Width(300);
+                       
+                        columns.Command(commands =>
+                        {
+                            commands.Edit();
+                            commands.Delete();
+                        }).Width(180);
+
+                    })
+                    .ToolBar(x => 
+                    {
+                        x.Insert();
+                    })
+                    .Editable(x =>
+                    {
+                        x.Mode(GridEditMode.InLine);
+                    })
+                    .DataBinding(dataBinding =>
+                    {
+
+                        dataBinding.Ajax()
+                            .Select("GenericCatalogAttributes", "GenericCatalog", new { genericCatalogId = Model.Id })
+                            .Update("GenericCatalogAttributeUpdate", "GenericCatalog")
+                            .Delete("GenericCatalogAttributeDelete", "GenericCatalog")
+                            .Insert("GenericCatalogAttributeAdd", "GenericCatalog", new { genericCatalogId = Model.Id });
+                    })
+                    .ClientEvents(x => x.OnError("grid_onError"))
+                    .EnableCustomBinding(true))
+                <script type="text/javascript">
+                    function grid_onError(e) {
+                        alert(e.XMLHttpRequest.responseText);
+                        e.preventDefault();
+                    }
+                </script>
+            </td>
+        </tr>
+    </table>
+    }
+    else
+    {
+<span>Lưu danh mục động trước khi sử dụng tính năng này!</span>
+    }
+}
+
+

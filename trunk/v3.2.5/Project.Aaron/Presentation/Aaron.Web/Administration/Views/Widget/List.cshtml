@@ -1,0 +1,59 @@
+﻿@model Telerik.Web.Mvc.GridModel<WidgetModel>
+@using Telerik.Web.Mvc.UI;
+@using Aaron.Admin.Models.Cms;
+@{    
+    //page title
+    ViewBag.Title = "Widgets";
+}
+<div class="section-header">
+    <div class="title">
+        <img src="@Url.Content("~/Administration/Content/images/ico-content.png")" alt="" />
+        Danh sách Widget
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<WidgetModel>()
+                    .Name("widgets-grid")
+                    .DataKeys(x =>
+                    {
+                        x.Add(y => y.SystemName).RouteKey("systemName");
+                    })
+                    .BindTo(Model.Data)
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.FriendlyName)
+                            .Width(150)
+                            .ReadOnly();
+                        columns.Bound(x => x.SystemName).Width(150).ReadOnly();
+                        columns.Bound(x => x.DisplayOrder)
+                            .Width(100);
+                        columns.Bound(x => x.IsActive)
+                            .Template(
+                                @<img alt="" src="@Url.Content("~/Administration/Content/images/active-" + item.IsActive.ToString().ToLowerInvariant() + ".gif")" />
+                            )
+                            .ClientTemplate("<img alt='' src='" + Url.Content("~/Administration/Content/images/") + "active-<#= IsActive #>.gif' />")
+                            .Width(100);
+                        columns.Template(
+                                @<div>
+                                    @Html.ActionLink("Cấu hình", "ConfigureWidget", new { systemName = item.SystemName })
+                                </div>
+                            )
+                            .ClientTemplate("<a href=\"ConfigureWidget?systemName=<#= SystemName #>\">Cấu hình</a>")
+                            .Width(100)
+                            .Title("Cấu hình");
+                        columns.Command(commands =>
+                        {
+                            commands.Edit().Text("Chỉnh sửa");
+                        }).Title("Chỉnh sửa").Width(100);
+                    })
+                    .DataBinding(dataBinding =>
+                    {
+                        dataBinding.Ajax().Select("List", "Widget")
+                            .Update("WidgetUpdate", "Widget");
+                    })
+                    .EnableCustomBinding(true))
+        </td>
+    </tr>
+</table>

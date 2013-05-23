@@ -1,0 +1,88 @@
+﻿@model Aaron.Admin.Models.Accounts.AccountModel
+@using Telerik.Web.Mvc.UI;
+
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.Id)
+
+@Html.Telerik().TabStrip().Name("poll-edit").Items(x =>
+{
+    x.Add().Text("Chi tiết").Content(TabInfo().ToHtmlString()).Selected(true);
+    x.Add().Text("Vai trò").Content(TabRole().ToHtmlString());
+})
+
+@helper TabInfo(){
+    <table class="adminContent">
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Email)
+        </td>
+        <td class="adminData">
+        @if(Model.Id == 0){
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        }
+        else{
+            <span>@Model.Email</span>
+            @Html.HiddenFor(model => model.Email)
+        }
+        </td>
+        </tr>
+        <tr>
+        @if (Model.Id > 0)
+        {
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.ChangePassword)
+        </td>
+        <td class="adminData">
+            @Html.PasswordFor(model => model.ChangePassword)
+            @Html.ValidationMessageFor(model => model.ChangePassword)
+            <input type="submit" name="changepassword" class="t-button" value="Đổi mật khẩu" />
+        </td>
+        }
+        else
+        {
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Password)
+        </td>
+        <td class="adminData">
+            @Html.PasswordFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+            
+        </td>
+        }
+        
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Active)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.Active)
+            @Html.ValidationMessageFor(model => model.Active)
+        </td>
+        </tr>
+    </table>
+}
+
+@helper TabRole()
+    {
+    <table class="adminContent">
+        @foreach (var accountRole in Model.AvailableAccountRoles)
+        {
+        <tr>
+            <td>
+    <input type="checkbox" name="SelectedAccountRoleIds" value="@accountRole.Id"
+            @if (Model.SelectedAccountRoleIds != null && Model.SelectedAccountRoleIds.Contains(accountRole.Id))
+            {
+                <text> checked="checked"</text>
+            }
+            @if (!Model.AllowManagingAccountRoles)
+            {
+            <text> disabled="disabled"</text>
+            }
+            />@accountRole.Name
+            </td>
+        </tr>       
+        }
+    </table>   
+}

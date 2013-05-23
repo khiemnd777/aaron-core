@@ -1,0 +1,30 @@
+<configuration>
+	<configSections>
+		<!-- It's used for regist type services and map to classes -->
+		<section name="registerTypeConfig" type="Aaron.Core.Infrastructure.Config.RegisterTypeConfig, Aaron.Core" />
+		<!-- utilities but only temporary, and will be removed in the latest version -->
+		<section name="imgPath" type="Aaron.Core.Utility.Image.Config.ImageSetting, Aaron.Core" />
+		<section name="GoogleAnalysis" type="Aaron.Core.Analysis.Config.AnalysisSetting, Aaron.Core" />
+		<section name="FacebookAPI" type="Aaron.Core.Analysis.Config.AnalysisSetting, Aaron.Core" />
+		<section name="posterOnPage" type="Aaron.Core.Utility.Paging.Config.PageSetting, Aaron.Core" />
+		<section name="homeLogo" type="Aaron.Core.Utility.Image.Config.HomeLogoSetting, Aaron.Core" />
+		<section name="newestPosterOnPage" type="Aaron.Core.Utility.Paging.Config.PageSetting, Aaron.Core" />
+	</configSections>
+	<homeLogo logoName="logo.png" faviconName="favicons.png" />
+	<imgPath imagePath="/img/avt/" thumpPath="/img/avt/thump/" />
+	<posterOnPage itemsOnPage="10" />
+	<newestPosterOnPage itemsOnPage="5" />
+	<GoogleAnalysis id="Google-analytic-id" />
+	<FacebookAPI id="fb-api" />
+	<registerTypeConfig>
+		<registerType>
+			<!-- Add more and more -->
+			<add interface="interface.name, assembly.name" class="class.name, assembly.name" />
+		</registerType>
+	</registerTypeConfig>
+	<appSettings>
+		<add key="dependencyResolverTypeName" value="Aaron.Registrar.KernelRegistrar, Aaron.Registrar" />
+		<add key="dataMapping" value="Aaron.Data.Mapping.CatalogMap, Aaron.Data.Mapping"/> <!-- choice another mapping -->
+	</appSettings>
+</configuration>
+  

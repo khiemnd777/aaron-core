@@ -1,0 +1,129 @@
+﻿@using Telerik.Web.Mvc.UI;
+@using Telerik.Web.Mvc;
+@using Aaron.Core;
+@using Aaron.Core.Infrastructure;
+@using Aaron.Core.Services.Accounts;
+@using Aaron.Core.Web;
+@using Aaron.Core.Web.UI;
+@using StackExchange.Profiling;
+@{
+    var currentAccount = this.CurrentActivity.CurrentAccount;
+    var currentVersion = string.Format("Aaron Source v{0}", AaronVersion.CurrentVersion);
+
+    //resources
+    Html.AppendCssFileParts(Url.Content("~/Administration/Content/Site.css"));
+    Html.AppendScriptParts(Url.Content("~/Administration/Scripts/admin.common.js"));
+    Html.AppendScriptParts(Url.Content("~/Administration/Scripts/jquery.validate.unobtrusive.min.js"));
+    Html.AppendScriptParts(Url.Content("~/Administration/Scripts/jquery.validate.min.js"));
+    Html.AppendScriptParts(Url.Content("~/Administration/Scripts/jquery.unobtrusive-ajax.min.js"));
+    Html.AppendScriptParts(Url.Content("~/Administration/Scripts/jquery-1.7.1.min.js"));
+    
+    //page title
+    string adminPageTitle = "";
+    if (!String.IsNullOrWhiteSpace(ViewBag.Title))
+    {
+        adminPageTitle = ViewBag.Title + " | ";
+    }
+    adminPageTitle += "Aaron's Admin Area";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@adminPageTitle</title>
+    @Html.CssFiles(ResourceLocation.Head)
+    @Html.Scripts(ResourceLocation.Head)
+</head>
+
+<body>
+    <div class="master-wrapper-page">
+        <div class="master-wrapper-content">
+            @if (IsSectionDefined("header"))
+            {
+                @RenderSection("header")
+            }
+            else
+            {
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $("#restart-application").click(function (e) {
+                            showThrobber('Đang khởi động...');
+                        });
+                    });
+                </script>
+                <div class="header">
+                    <div class="logo">
+                    </div>
+                    <div class="links">
+                        @Html.ActionLink("Trang chủ", "Index", "Home", new { area = "" }, null)
+                        <span class="separator">|</span>                        
+                        @Html.ActionLink("Xóa cache", "ClearCache", "Common")
+                        <span class="separator">|</span>                        
+                        @Html.ActionLink("Khởi động lại hệ thống", "RestartApp", "Common", null, new { id = "restart-application" })
+                    </div>
+                    <div class="login-info">
+                        @if (currentAccount != null && currentAccount.IsRegistered())
+                        {
+                            <text>Tài khoản: <a href="@Url.Content("~/Admin/Account/Edit/")@currentAccount.Id">@currentAccount.Email</a></text>
+                            <text>, @Html.ActionLink("Thoát?", "Logout", "Account", new { area = "" }, null)</text> 
+                        }
+                    </div>
+                    <div class="version">
+                        <span>@currentVersion</span>
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            }
+            @if (IsSectionDefined("headermenu"))
+            {
+                @RenderSection("headermenu")
+            }
+            else
+            {
+                <div class="header-menu">
+                    @Html.Partial("_Menu")
+                </div>
+            }
+            @if (IsSectionDefined("statusbar"))
+            {
+                @RenderSection("statusbar")
+            }
+            else
+            {
+                <div class="status-bar">
+                    <div class="help">
+                        @(IoC.Resolve<Aaron.Core.Services.Helpers.IDateTimeHelper>().ConvertToUserTime(DateTime.Now).ToString("f"))
+                    </div>
+                    <div class="breadcrumb">
+                        <!-- SiteMapPath here-->
+                    </div>
+                </div>
+                <div class="clear">
+                </div>
+            }
+            <div class="content">
+                <div class="cph">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+    @(Html.Telerik().StyleSheetRegistrar()
+        .DefaultGroup(group => group
+            .Add("telerik.common.min.css")
+            .Add("telerik.vista.min.css")
+            .Add("telerik.rtl.min.css")
+            //uncomment the lines below in order to combine and compress CSS files
+            //.Combined(true)
+            //.Compress(true)
+            ))
+    @(Html.Telerik().ScriptRegistrar()
+            .jQuery(false)
+            .jQueryValidation(false)
+            )
+    @Html.CssFiles(ResourceLocation.Foot)
+    @Html.Scripts(ResourceLocation.Foot)
+    @MiniProfiler.RenderIncludes()
+</body>
+</html>

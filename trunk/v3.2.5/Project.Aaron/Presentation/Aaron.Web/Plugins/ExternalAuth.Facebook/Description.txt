@@ -1,0 +1,8 @@
+Group: ExternalAuth methods
+FriendlyName: Facebook OpenAuth
+SystemName: ExternalAuth.Facebook
+Version: 0.1 (beta)
+SupportedVersions: 3.2.5
+Author: Aaron Source Team
+DisplayOrder: 5
+FileName: Aaron.Plugin.ExternalAuth.Facebook.dll

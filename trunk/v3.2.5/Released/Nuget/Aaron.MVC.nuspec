@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>Aaron.MVC</id>
+    <version>3.2.1.1</version>    
+    <description>Making your project better.</description>
+    <authors>Kandy Nguyen</authors>
+    <licenseUrl>http://aaroncore.codeplex.com/license</licenseUrl>
+    <projectUrl>http://aaroncore.codeplex.com/</projectUrl>
+    <iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=aaroncore%26DownloadId=507051%26Build=74</iconUrl>
+    <tags>core dependency mvc aaron architect</tags>
+    <language>en-US</language>
+    <dependencies>
+      <group>
+        <dependency id="Aaron.Core" />
+        <dependency id="Aaron.Data" />
+        <dependency id="Aaron.Registrar" />
+        <dependency id="Autofac.Mvc3" version="2.6.3.862 " />
+        <dependency id="TelerikMvcExtensions" version="2012.3.1018" />
+        <dependency id="EntityFramework" version="[5.0.0.0,)" />
+        <dependency id="MiniProfiler" version="2.0.2" />
+        <dependency id="WebActivator" version="1.5.3" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.Web.Infrastructure" targetFramework=".NETFramework4.0" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="..\Nuget\tools\install.ps1" target="tools\net40"/>
+    <file src="..\Nuget\tools\install.ps1" target="tools\net45"/>
+    <file src="..\Nuget\lib\Aaron.Admin.dll" target="lib\net40"/>
+    <file src="..\Nuget\lib\Aaron.Admin.dll" target="lib\net45"/>
+    <file src="..\Nuget\content\*" target="content\"/>
+    <file src="..\Nuget\content\Administration\*" target="content\Administration\"/>
+    <file src="..\Nuget\content\Administration\Content\*" target="content\Administration\Content\"/>
+    <file src="..\Nuget\content\Administration\Content\images\*" target="content\Administration\Content\images\"/>
+    <file src="..\Nuget\content\Administration\Scripts\*" target="content\Administration\Scripts\"/>
+    <file src="..\Nuget\content\Administration\Views\*" target="content\Administration\Views\"/>
+    <file src="..\Nuget\content\Administration\Views\Account\*" target="content\Administration\Views\Account\"/>
+    <file src="..\Nuget\content\Administration\Views\AccountRole\*" target="content\Administration\Views\AccountRole\"/>
+    <file src="..\Nuget\content\Administration\Views\Campaign\*" target="content\Administration\Views\Campaign\"/>
+    <file src="..\Nuget\content\Administration\Views\Catalog\*" target="content\Administration\Views\Catalog\"/>
+    <file src="..\Nuget\content\Administration\Views\EmailAccount\*" target="content\Administration\Views\EmailAccount\"/>
+    <file src="..\Nuget\content\Administration\Views\ExternalAuthentication\*" target="content\Administration\Views\ExternalAuthentication\"/>
+    <file src="..\Nuget\content\Administration\Views\GenericCatalog\*" target="content\Administration\Views\GenericCatalog\"/>
+    <file src="..\Nuget\content\Administration\Views\Home\*" target="content\Administration\Views\Home\"/>
+    <file src="..\Nuget\content\Administration\Views\Log\*" target="content\Administration\Views\Log\"/>
+    <file src="..\Nuget\content\Administration\Views\MessageTemplate\*" target="content\Administration\Views\MessageTemplate\"/>
+    <file src="..\Nuget\content\Administration\Views\Notice\*" target="content\Administration\Views\Notice\"/>
+    <file src="..\Nuget\content\Administration\Views\Plugin\*" target="content\Administration\Views\Plugin\"/>
+    <file src="..\Nuget\content\Administration\Views\Security\*" target="content\Administration\Views\Security\"/>
+    <file src="..\Nuget\content\Administration\Views\Settings\*" target="content\Administration\Views\Settings\"/>
+    <file src="..\Nuget\content\Administration\Views\Shared\*" target="content\Administration\Views\Shared\"/>
+    <file src="..\Nuget\content\Administration\Views\Shared\EditorTemplates\*" target="content\Administration\Views\Shared\EditorTemplates\"/>
+    <file src="..\Nuget\content\Administration\Views\Templates\*" target="content\Administration\Views\Templates\"/>
+    <file src="..\Nuget\content\Administration\Views\Topic\*" target="content\Administration\Views\Topic\"/>
+    <file src="..\Nuget\content\Administration\Views\Widget\*" target="content\Administration\Views\Widget\"/>
+    <file src="..\Nuget\content\App_Data\*" target="content\App_Data\"/>
+    <file src="..\Nuget\content\Content\*" target="content\Content\"/>
+    <file src="..\Nuget\content\Content\editors\*" target="content\Content\editors\"/>
+    <file src="..\Nuget\content\Content\editors\tinymce\**\*" target="content\Content\editors\tinymce\"/>
+    <file src="..\Nuget\content\Controllers\*" target="content\Controllers\"/>
+    <file src="..\Nuget\content\Models\*" target="content\Models\"/>
+    <file src="..\Nuget\content\Models\Accounts\*" target="content\Models\Accounts\"/>
+    <file src="..\Nuget\content\Models\Common\*" target="content\Models\Common\"/>
+    <file src="..\Nuget\content\Models\Cms\*" target="content\Models\Cms\"/>
+    <file src="..\Nuget\content\Models\Topics\*" target="content\Models\Topics\"/>
+    <file src="..\Nuget\content\Plugins\*" target="content\Plugins\"/>
+    <file src="..\Nuget\content\Plugins\bin\*" target="content\Plugins\bin"/>
+    <file src="..\Nuget\content\Plugins\ExternalAuth.Facebook\*" target="content\Plugins\ExternalAuth.Facebook\"/>
+    <file src="..\Nuget\content\Plugins\ExternalAuth.Facebook\Content\*" target="content\Plugins\ExternalAuth.Facebook\Content\"/>
+    <file src="..\Nuget\content\Plugins\ExternalAuth.Facebook\Content\Images\*" target="content\Plugins\ExternalAuth.Facebook\Content\Images\"/>
+    <file src="..\Nuget\content\Plugins\ExternalAuth.Facebook\Scripts\*" target="content\Plugins\ExternalAuth.Facebook\Scripts\"/>
+    <file src="..\Nuget\content\Plugins\ExternalAuth.Facebook\Views\*" target="content\Plugins\ExternalAuth.Facebook\Views\"/>
+    <file src="..\Nuget\content\Plugins\ExternalAuth.Facebook\Views\ExternalAuthFacebook\*" target="content\Plugins\ExternalAuth.Facebook\Views\ExternalAuthFacebook\"/>
+    <file src="..\Nuget\content\Routes\*" target="content\Routes\"/>
+    <file src="..\Nuget\content\Scripts\*" target="content\Scripts\"/>
+    <file src="..\Nuget\content\Themes\*" target="content\Themes\"/>
+    <file src="..\Nuget\content\Themes\Default\*" target="content\Themes\Default\"/>
+    <file src="..\Nuget\content\Themes\Default\Content\*" target="content\Themes\Default\Content\"/>	
+    <file src="..\Nuget\content\Themes\Default\Views\*" target="content\Themes\Default\Views\"/>	
+    <file src="..\Nuget\content\Themes\Default\Views\Shared\*" target="content\Themes\Default\Views\Shared\"/>	
+    <file src="..\Nuget\content\Views\*" target="content\Views\"/>
+    <file src="..\Nuget\content\Views\Install\*" target="content\Views\Install\"/>
+    <file src="..\Nuget\content\Views\Account\*" target="content\Views\Account\"/>
+    <file src="..\Nuget\content\Views\Common\*" target="content\Views\Common\"/>
+    <file src="..\Nuget\content\Views\ExternalAuthentication\*" target="content\Views\ExternalAuthentication\"/>
+    <file src="..\Nuget\content\Views\ExternalAuthFacebook\*" target="content\Views\ExternalAuthFacebook\"/>
+    <file src="..\Nuget\content\Views\Shared\*" target="content\Views\Shared\"/>
+    <file src="..\Nuget\content\Views\Shared\Templates\*" target="content\Views\Shared\Templates\"/>
+    <file src="..\Nuget\content\Views\Topic\*" target="content\Views\Topic\"/>
+    <file src="..\Nuget\content\Views\WidgetClient\*" target="content\Views\WidgetClient\"/>
+  </files>
+</package>

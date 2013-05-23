@@ -1,0 +1,18 @@
+<configuration>
+	<configSections>
+		<!-- It's used for regist type services and map to classes -->
+		<section name="registerTypeConfig" type="Aaron.Core.Infrastructure.Config.RegisterTypeConfig, Aaron.Core" />
+	</configSections>
+	<registerTypeConfig>
+		<registerType>
+			<!-- Add more and more -->
+			<!--<add interface="interface.name, assembly.name" class="class.name, assembly.name" />-->
+		</registerType>
+	</registerTypeConfig>
+	<appSettings>
+		<add key="dependencyResolverTypeName" value="Aaron.Registrar.KernelRegistrar, Aaron.Registrar" />
+    <!-- choice another mapping -->
+		<add key="dataMapping" value=","/>
+	</appSettings>
+</configuration>
+  

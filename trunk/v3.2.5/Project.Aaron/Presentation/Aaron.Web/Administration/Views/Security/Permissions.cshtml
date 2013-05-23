@@ -1,0 +1,70 @@
+﻿@model Aaron.Admin.Models.Security.PermissionMappingModel
+@{  
+    ViewBag.Title = "Quản lý Quyền truy xuất";
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <img src="@Url.Content("~/Administration/Content/images/ico-configuration.png")" alt="" />
+            "Quản lý Quyền truy xuất"
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="t-button" value="Save" />
+        </div>
+    </div>
+    
+    <table class="adminContent">
+        <tr>
+            <td>
+                @if (Model.AvailablePermissions.Count == 0)
+                {
+                    <text>No permissions defined</text>
+                }
+                else if (Model.AvailableAccountRoles.Count == 0)
+                {
+                    <text>No customer roles available</text>
+                }
+                else
+                {
+                    <table class="tablestyle" cellspacing="0" rules="all" border="1" style="width: 100%;
+                        border-collapse: collapse;">
+                        <tbody>
+                            <tr class="headerstyle">
+                                <th scope="col">
+                                    <strong>Phân quyền</strong>
+                                </th>
+                                @foreach (var cr in Model.AvailableAccountRoles)
+                                {
+                                    <th scope="col">
+                                        <strong>@cr.Name</strong>
+                                    </th>
+                                }
+                            </tr>
+                            @{
+                                bool altRow = true;
+                            }
+                            @foreach (var pr in Model.AvailablePermissions)
+                            {
+                                altRow = !altRow;
+                                <tr class="@(altRow ? "altrowstyle" : "rowstyle")">
+                                    <td>
+                                        <span>@pr.Name</span>
+                                    </td>
+                                    @foreach (var cr in Model.AvailableAccountRoles)
+                                    {
+                                        var allowed = Model.Allowed.ContainsKey(pr.SystemName) && Model.Allowed[pr.SystemName][cr.Id];
+                                        <td>
+                                            <input id="allow_@(cr.Id)" class="allow_@(cr.Id)" type="checkbox" value="@(pr.SystemName)" name="allow_@(cr.Id)" @(allowed ? " checked=checked" : null) />
+                                        </td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </td>
+        </tr>
+    </table>
+
+}

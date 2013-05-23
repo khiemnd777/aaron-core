@@ -1,0 +1,21 @@
+﻿@model Aaron.Admin.Models.Messages.CampaignModel
+@using Aaron.Core.Web;
+@{
+    //page title
+    ViewBag.Title = "Chi tiết " + Model.Name;
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <img src="@Url.Content("~/Administration/Content/images/ico-promotions.png")" alt="" />
+            Chi tiết @Model.Name - @Html.ActionLink("Trở về danh sách", "List")
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="t-button" value="Lưu" />
+            <span id="campaign-delete" class="t-button">Xóa</span>
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model)
+}
+@Html.DeleteConfirmation("campaign-delete")

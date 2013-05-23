@@ -1,0 +1,26 @@
+[8/11/2012 10:06AM] - Create proj sample of Account Authentication.
+[8/11/2012 10:06AM] - Analysis and Install Aaron.Core.
+[8/11/2012 10:07AM] - Create AccountRoleController.cs.
+[8/11/2012 10:07AM] - Create AccountRoleModel.cs.
+[8/11/2012 10:08AM] - Create AutoMappingExtensions.cs.
+[8/11/2012 10:09AM] - Create MapperConfig.cs.
+[8/11/2012 10:10AM] - Create Method Create return ActionResult in AccountRoleController.cs.
+[8/11/2012 10:10AM] - Create Method Create return ActionResult in AccountRoleController.cs marked HttpPost.
+[8/11/2012 10:11AM] - Create Method Delete return ActionResult in AccountRoleController.cs.
+[8/11/2012 10:11AM] - Create View Create for AccountRole.
+[8/11/2012 10:12AM] - Create View Delete for AccountRole.
+[8/11/2012 10:12AM] - Create View Index for AccountRole.
+[8/11/2012 10:13AM] - Run success.
+[8/11/2012 10:15AM] - Analysis about Account.
+[8/11/2012 10:17AM] - Create Model AccountModel.cs.
+[8/11/2012 10:29AM] - Create AccountController.cs.
+[8/11/2012 10:29AM] - Create Method Create in AccountController.cs marked HttpPost.
+[8/11/2012 10:58AM] - Create Method Create in AccountController.cs.
+[8/11/2012 11:37AM] - Create View Create for Account.
+[8/11/2012 11:47AM] - Create class BaseModel and BaseEntityModel to Aaron.Core.Web.
+[8/11/2012 02:15PM] - Create class PerRequestCacheManager to Aaron.Core.Caching.
+[8/11/2012 03:00PM] - Resolve any errors from KernelRegistrar.
+[9/11/2012 08:10AM] - Continous to resolve errors from KernelRegistrar, focus PerRequuestCacheManager.
+[9/11/2012 10:06AM] - Find the way to resolve this problem above.
+[9/11/2012 10:08AM] - Resolve problems11:01 AM 11/9/2012 associate with HttpContextBase.
+[9/11/2012 12:46PM] - Resolve Done 2 ways CacheManager and HttpContextBase.

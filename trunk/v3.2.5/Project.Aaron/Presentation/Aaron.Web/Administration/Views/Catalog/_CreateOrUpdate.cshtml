@@ -1,0 +1,172 @@
+﻿@model Aaron.Admin.Models.Catalogs.CatalogModel
+@using System.Globalization;
+@using Aaron.Core;
+@using Telerik.Web.Mvc.UI;
+
+@Html.ValidationSummary(true)
+@Html.HiddenFor(model => model.Id)
+@Html.Telerik().TabStrip().Name("poll-edit").Items(x =>
+{
+    x.Add().Text("Chi tiết").Content(TabInfo().ToHtmlString()).Selected(true);
+    x.Add().Text("Thuộc tính").Content(TabAttribute().ToHtmlString());
+    x.Add().Text("SEO").Content(TabSEO().ToHtmlString());
+})
+
+@helper TabInfo()
+    {
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.Name)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.GenericCatalogId)
+            </td>
+            <td class="adminData">
+            @*the new way:*@
+            @(Html.Telerik().DropDownListFor(t => t.GenericCatalogId)
+                        .BindTo(new SelectList((System.Collections.IEnumerable)ViewData["GenericCatalogDDL"], "Value", "Name"))
+                        .CascadeTo("ParentCatalogId"))
+            @* the old way:
+            @Html.DropDownListFor(model => model.GenericCatalogId, (IEnumerable<SelectListItem>)ViewBag.GenericCatalogId)*@
+            @Html.ValidationMessageFor(model => model.GenericCatalogId)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.ParentCatalogId)
+            </td>
+            <td class="adminData">
+            @(Html.Telerik().DropDownListFor(t => t.ParentCatalogId)
+                        //.BindTo(new SelectList((System.Collections.IEnumerable)ViewData["ParentCatalogDDL"], "Value", "Name")))
+                        .DataBinding(binding => binding.Ajax().Select("_GetDropDownListParentCatalogs", "Catalog", new { duplicateCatalogId = Model.Id })))
+            @Html.ValidationMessageFor(model => model.ParentCatalogId)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.TemplateId)
+            </td>
+            <td class="adminData">
+                @*the new way:*@
+                @(Html.Telerik().DropDownListFor(t => t.TemplateId)
+                            .BindTo(new SelectList((System.Collections.IEnumerable)ViewData["TemplateDDL"], "Value", "Name")))
+            @*the old way:
+                @Html.DropDownList("TemplateId")*@
+                @Html.ValidationMessageFor(model => model.TemplateId)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.Published)
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.Published)
+                @Html.ValidationMessageFor(model => model.Published)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.DisplayOrder)
+            </td>
+            <td class="adminData">
+                @(Html.Telerik().IntegerTextBoxFor(m => m.DisplayOrder)
+                    .MinValue(0)
+                    .MaxValue(100))
+                @Html.ValidationMessageFor(model => model.DisplayOrder)
+            </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Avatar)
+            
+        </td>
+        <td class="adminData">
+            @if(!string.IsNullOrEmpty(Model.OldFilePath))
+            {
+                <input type="image" src="@Url.Content(Model.OldFilePath)" width="100" height="100" />
+                @Html.HiddenFor(model => model.OldFilePath);
+            }
+            @(Html.Telerik().Upload()
+            .Name("iconAttachments")
+            .Multiple(IoC.Resolve<Aaron.Core.Domain.Catalogs.CatalogSettings>().AllowUploadMultiFile)
+            .Async(async => async
+                    .Save("SaveFileUpload", "Catalog")
+                    .Remove("RemoveFileUpload", "Catalog")
+                    .AutoUpload(IoC.Resolve<Aaron.Core.Domain.Catalogs.CatalogSettings>().AllowAutoUpload)))
+
+            @*@Html.ValidationMessageFor(model => model.Icon)*@
+        </td>
+        </tr>
+    </table>
+}
+
+@helper TabAttribute()
+    {
+    if(Model.Id > 0){
+    <table class="adminContent">
+        @foreach (var r in Model.CatalogRecordModel)
+        {
+        <tr>
+            <td class="adminTitle">
+            @Html.Label(r.Name)
+            </td>
+            <td class="adminData">
+                @Html.Partial("_Editor", r)
+            </td>
+        </tr>
+        }
+                            
+    </table>
+    }
+    else{
+        <span>Lưu chi tiết trước khi sử dụng tính năng này!</span>
+    }
+}
+@helper TabSEO()
+    {
+    <table class="adminContent">
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.SEOUrlName)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.SEOUrlName)
+            @Html.ValidationMessageFor(model => model.SEOUrlName)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.MetaTitle)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.MetaTitle)
+            @Html.ValidationMessageFor(model => model.MetaTitle)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.MetaKeywords)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.MetaKeywords)
+            @Html.ValidationMessageFor(model => model.MetaKeywords)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.MetaDescription)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.MetaDescription)
+            @Html.ValidationMessageFor(model => model.MetaDescription)
+        </td>
+        </tr>
+    </table>    
+}

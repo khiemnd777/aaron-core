@@ -1,0 +1,21 @@
+﻿@model Aaron.Admin.Models.Messages.EmailAccountModel
+@using Aaron.Core.Web;       
+@{
+    //page title
+    ViewBag.Title = "Chỉnh sửa email" + Model.Email;
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <img src="@Url.Content("~/Administration/Content/images/ico-configuration.png")" alt="" />
+            Chỉnh sửa email @Model.Email @Html.ActionLink("(Trở về danh sách email)", "List")
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="t-button" value="Lưu" />
+            <span id="emailAccount-delete" class="t-button">Xóa</span>
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model)
+}
+@Html.DeleteConfirmation("emailAccount-delete")

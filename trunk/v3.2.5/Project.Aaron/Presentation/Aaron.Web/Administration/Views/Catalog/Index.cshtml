@@ -1,0 +1,62 @@
+﻿@using Telerik.Web.Mvc.UI
+@model IEnumerable<Aaron.Admin.Models.Catalogs.CatalogModel>
+@{
+    ViewBag.Title = "Quản lý danh mục";
+}
+<div class="section-header">
+    <div class="title">
+        Quản lý danh mục
+    </div>
+    <div class="options">
+        @Html.ActionLink("Thêm mới", "Create", "Catalog", new { @class = "t-button" })
+    </div>
+</div>
+<div class="selection-find">
+@using (Html.BeginForm("Index", "Catalog", FormMethod.Get))
+{
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                Chọn danh mục động:
+            </td>
+            <td class="adminData">
+                @(Html.Telerik().DropDownList()
+                    .Name("GenericCatalogId")
+                    .BindTo(new SelectList((System.Collections.IEnumerable)ViewData["GenericCatalogDDL"], "Value", "Name")))
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle" colspan="2">
+                <input type="submit" value="Chấp nhận" />
+            </td>
+        </tr>
+    </table>
+}
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+@(Html.Telerik().Grid(Model)
+      .Name("Catalog")
+      .Columns(columns =>
+                   {
+                       columns.Bound(o => o.Name);
+                       columns.Bound(o => o.GenericCatalogName)
+                            .Template(x => Html.ActionLink(x.GenericCatalogName, "Edit", "GenericCatalog", new { id = x.GenericCatalogId }, new { }))
+                            .ClientTemplate("<a href=\"" + @Url.Content("~/Admin/GenericCatalog/Edit/") + "<#= GenericCatalogId #>\"><#= GenericCatalogName #></a>");
+                       columns.Bound(o => o.DisplayOrder);
+                       columns.Bound(o => o.Published);
+                       columns.Template(
+                           @<text>
+                                @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, new { @class = "t-button" })
+                                @Html.ActionLink("Xóa", "Remove", "Catalog", new { id = item.Id }, new { @class = "t-button" })
+                            </text>
+                           ).HtmlAttributes(new{style ="text-align: center;"});
+                   })
+      .Pageable(p => p.Style(GridPagerStyles.NextPreviousAndNumeric | GridPagerStyles.PageSizeDropDown))
+      .Sortable()
+      )
+      
+      </td>
+    </tr>
+</table>
