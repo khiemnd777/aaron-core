@@ -1,0 +1,216 @@
+﻿@model Aaron.Admin.Models.Settings.SongSettingsModel
+@using Telerik.Web.Mvc.UI
+
+@{
+    ViewBag.Title = "Thiết lập Ca khúc";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="section-header">
+        <div class="title">
+            Thiết lập Ca khúc
+        </div>
+        <div class="options">
+            <input type="submit" value="Lưu" class="t-button" />
+        </div>
+    </div>
+    <table class="adminContent">
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.DefaultSongId):
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(model => model.DefaultSongId)
+                  .MinValue(1)
+                  .Value(Model.DefaultSongId))
+            @Html.ValidationMessageFor(model => model.DefaultSongId)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.SongsInPage):
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(model => model.SongsInPage)
+                  .MinValue(1)
+                  .Value(Model.SongsInPage))
+            @Html.ValidationMessageFor(model => model.SongsInPage)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.NewestSongs):
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(model => model.NewestSongs)
+                  .MinValue(1)
+                  .Value(Model.NewestSongs))
+            @Html.ValidationMessageFor(model => model.NewestSongs)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AssociatedSongs_Tiles):
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(model => model.AssociatedSongs_Tiles)
+                  .MinValue(1)
+                  .Value(Model.AssociatedSongs_Tiles))
+            @Html.ValidationMessageFor(model => model.AssociatedSongs_Tiles)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AssociatedSongs_List):
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(model => model.AssociatedSongs_List)
+                  .MinValue(1)
+                  .Value(Model.AssociatedSongs_List))
+            @Html.ValidationMessageFor(model => model.AssociatedSongs_List)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.InterestSongs):
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(model => model.InterestSongs)
+                  .MinValue(1)
+                  .Value(Model.InterestSongs))
+            @Html.ValidationMessageFor(model => model.InterestSongs)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.TopSongs):
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().IntegerTextBoxFor(model => model.TopSongs)
+                  .MinValue(1)
+                  .Value(Model.TopSongs))
+            @Html.ValidationMessageFor(model => model.TopSongs)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.PlayerDimension):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.PlayerDimension)
+            @Html.ValidationMessageFor(model => model.PlayerDimension)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.Autoplay):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.Autoplay)
+            @Html.ValidationMessageFor(model => model.Autoplay)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AllowDownload):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.AllowDownload)
+            @Html.ValidationMessageFor(model => model.AllowDownload)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AllowDownloadPowerPoint):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.AllowDownloadPowerPoint)
+            @Html.ValidationMessageFor(model => model.AllowDownloadPowerPoint)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AllowDownloadSheet):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.AllowDownloadSheet)
+            @Html.ValidationMessageFor(model => model.AllowDownloadSheet)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AllowDownloadMp3):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.AllowDownloadMp3)
+            @Html.ValidationMessageFor(model => model.AllowDownloadMp3)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.SignInToComment):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.SignInToComment)
+            @Html.ValidationMessageFor(model => model.SignInToComment)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AllowComment):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.AllowComment)
+            @Html.ValidationMessageFor(model => model.AllowComment)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AllowViewPlaylist):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.AllowViewPlaylist)
+            @Html.ValidationMessageFor(model => model.AllowViewPlaylist)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.UseYoutubeChromeless):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.UseYoutubeChromeless)
+            @Html.ValidationMessageFor(model => model.UseYoutubeChromeless)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.UploadPowerPointPath):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.UploadPowerPointPath)
+            @Html.ValidationMessageFor(model => model.UploadPowerPointPath)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.UploadSheetPath):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.UploadSheetPath)
+            @Html.ValidationMessageFor(model => model.UploadSheetPath)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.ConvertPath):
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.ConvertPath)
+            @Html.ValidationMessageFor(model => model.ConvertPath)
+        </td>
+        </tr>
+    </table>
+}
+

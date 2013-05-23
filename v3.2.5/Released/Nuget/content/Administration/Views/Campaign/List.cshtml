@@ -1,0 +1,38 @@
+﻿@model Telerik.Web.Mvc.GridModel<CampaignModel>
+@using Aaron.Admin.Models.Messages;
+@using Telerik.Web.Mvc.UI
+@{
+    //page title
+    ViewBag.Title = "Quản lý Email giới thiệu";
+}
+<div class="section-header">
+    <div class="title">
+        <img src="@Url.Content("~/Administration/Content/images/ico-promotions.png")" alt="" />
+        Quản lý Email giới thiệu
+    </div>
+    <div class="options">
+        <a href="@Url.Action("Create")" class="t-button">Thêm mới</a>
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<CampaignModel>(Model.Data)
+                    .Name("campaigns-grid")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.Name)
+                            .Width(400);
+                        columns.Bound(x => x.CreatedOn)
+                            .Width(100);
+                        columns.Bound(x => x.Id)
+                            .Width(50)
+                            .Template(x => Html.ActionLink("Chỉnh sửa", "Edit", new { id = x.Id }))
+                            .ClientTemplate("<a href=\"Edit/<#= Id #>\">Chỉnh sửa</a>")
+                            .Title("Chỉnh sửa");
+                    })
+                    .DataBinding(dataBinding => dataBinding.Ajax().Select("List", "Campaign"))
+                    .EnableCustomBinding(true))
+        </td>
+    </tr>
+</table>

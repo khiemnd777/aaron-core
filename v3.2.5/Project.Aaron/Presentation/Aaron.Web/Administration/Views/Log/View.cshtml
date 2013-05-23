@@ -1,0 +1,90 @@
+﻿@model LogModel
+@using Aaron.Admin.Models.Logging;
+@{
+    //page title
+    ViewBag.Title = "Chi tiết nhật ký hệ thống";
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <img src="@Url.Content("~/Administration/Content/images/ico-system.png")" alt="" />
+            Chi tiết nhật ký hệ thống @Html.ActionLink("(trở về danh sách nhật ký)", "List")
+        </div>
+        <div class="options">
+            <span id="log-delete" class="t-button">Xóa</span>
+        </div>
+    </div>
+    
+    @Html.ValidationSummary(true)
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.LogLevel):
+            </td>
+            <td class="adminData">
+                @Html.DisplayFor(model => model.LogLevel)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.ShortMessage):
+            </td>
+            <td class="adminData">
+                @Html.DisplayFor(model => model.ShortMessage)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.FullMessage):
+            </td>
+            <td class="adminData">
+                @Html.DisplayFor(model => model.FullMessage)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.IpAddress):
+            </td>
+            <td class="adminData">
+                @Html.DisplayFor(model => model.IpAddress)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.AccountId):
+            </td>
+            <td class="adminData">
+                @if (Model.AccountId.HasValue)
+                {
+                    @Html.ActionLink(!String.IsNullOrEmpty(Model.AccountEmail) ? Model.AccountEmail : "Khách", "Edit", "Account", new { id = Model.AccountId }, new { })
+                }
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.PageUrl):
+            </td>
+            <td class="adminData">
+                @Html.DisplayFor(model => model.PageUrl)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.ReferrerUrl):
+            </td>
+            <td class="adminData">
+                @Html.DisplayFor(model => model.ReferrerUrl)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.CreatedOn):
+            </td>
+            <td class="adminData">
+                @Html.DisplayFor(model => model.CreatedOn)
+            </td>
+        </tr>
+    </table>
+}
+@Html.DeleteConfirmation("log-delete")

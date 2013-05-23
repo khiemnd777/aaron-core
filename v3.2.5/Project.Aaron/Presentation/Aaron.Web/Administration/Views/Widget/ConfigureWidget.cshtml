@@ -1,0 +1,19 @@
+﻿@model Aaron.Admin.Models.Cms.WidgetModel
+@{    
+    //page title
+    ViewBag.Title = "Cấu hình - " + Model.FriendlyName;
+}
+<div class="section-header">
+    <div class="title">
+        <img src="@Url.Content("~/Administration/Content/images/ico-content.png")" alt="" />
+        Cấu hình - @Model.FriendlyName @Html.ActionLink("(quay trở lại danh sách)", "List")
+    </div>
+</div>
+@if (!String.IsNullOrEmpty(Model.ConfigurationActionName))
+{
+    @Html.Action(Model.ConfigurationActionName, Model.ConfigurationControllerName, Model.ConfigurationRouteValues);
+}
+else
+{
+    <span>Cấu hình không được yêu cầu!</span>
+}

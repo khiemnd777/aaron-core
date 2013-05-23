@@ -1,0 +1,51 @@
+﻿@using Aaron.Core.Web.UI;
+@using Telerik.Web.Mvc.UI;
+@{
+    Html.AppendCssFileParts(Url.Content("~/Content/ui-lightness/jquery-ui-1.9.2.custom.min.css"));
+    Html.AppendScriptParts(Url.Content("~/Scripts/jquery-ui.min.js"));
+    Html.AppendScriptParts(Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js"));
+    Html.AppendScriptParts(Url.Content("~/Scripts/jquery.validate.min.js"));
+    Html.AppendScriptParts(Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js"));
+    Html.AppendScriptParts(Url.Content("~/Scripts/jquery-1.7.1.min.js"));
+}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@Html.Title(true)</title>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <meta name="robots" content="NOINDEX, NOFOLLOW" />
+        <meta name="description" content="@Html.MetaDescription()" />
+        <meta name="keywords" content="@Html.MetaKeywords()" />
+        @Html.MediaTag()
+        @Html.Partial("Head")
+        @Html.Widget("head_html_tag")
+        @{Html.AppendCssFileParts(@Url.Content("~/Content/reset.css"));}
+        @Html.CssFiles(ResourceLocation.Head)
+        @Html.Scripts(ResourceLocation.Head)
+        @Html.CanonicalUrls()
+        @Html.Action("Favicon", "Common")
+        <!-- @Html.Title(true) -->
+        <!--Powered by Aaron Core - http://aaroncore.codeplex.com-->
+        <!--Copyright (c) 2012-->
+    </head>
+    <body>
+        @Html.FacebookInitCode()
+        @RenderBody()
+        @(Html.Telerik().StyleSheetRegistrar()
+        .DefaultGroup(group => group
+            .Add("telerik.common.min.css")
+            .Add("telerik.vista.min.css")
+            .Add("telerik.rtl.min.css")
+            //uncomment the lines below in order to combine and compress CSS files
+            //.Combined(true)
+            //.Compress(true)
+            ))
+    @(Html.Telerik().ScriptRegistrar()
+            .jQuery(false)
+            .jQueryValidation(false)
+            )
+        @Html.CssFiles(ResourceLocation.Foot)
+        @Html.Scripts(ResourceLocation.Foot)
+        @Html.GoogleInitCode()
+    </body>
+</html>

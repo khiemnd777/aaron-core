@@ -1,0 +1,51 @@
+﻿@model Telerik.Web.Mvc.GridModel<TopicModel>
+@using Aaron.Admin.Models.Topics
+@using Telerik.Web.Mvc.UI
+@{    
+    //page title
+    ViewBag.Title = "Danh sách chủ đề";
+}
+<div class="section-header">
+    <div class="title">
+        <img src="@Url.Content("~/Administration/Content/images/ico-content.png")" alt="" />
+        Danh sách chủ đề
+    </div>
+    <div class="options">
+        <a href="@Url.Action("Create")" class="t-button">Thêm mới</a>
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<TopicModel>(Model.Data)
+                    .Name("topics-grid")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.SystemName)
+                            .Width(200);
+                        columns.Bound(x => x.IsPasswordProtected)
+                            .Template(
+                                @<img alt="" src="@Url.Content("~/Administration/Content/images/active-" + item.IsPasswordProtected.ToString().ToLowerInvariant() + ".gif")" />
+                            )
+                            .ClientTemplate("<img alt='' src='" + Url.Content("~/Administration/Content/images/") + "active-<#= IsPasswordProtected #>.gif' />")
+                            .Centered()
+                            .Width(100);
+                        columns.Bound(x => x.IncludeInSitemap)
+                            .Template(
+                                @<img alt="" src="@Url.Content("~/Administration/Content/images/active-" + item.IncludeInSitemap.ToString().ToLowerInvariant() + ".gif")" />
+                            )
+                            .ClientTemplate("<img alt='' src='" + Url.Content("~/Administration/Content/images/") + "active-<#= IncludeInSitemap #>.gif' />")
+                            .Centered()
+                            .Width(100);
+                        columns.Bound(x => x.Id)
+                            .Width(50)
+                            .Centered()
+                            .Template(x => Html.ActionLink("Chỉnh sửa", "Edit", new { id = x.Id }))
+                            .ClientTemplate("<a href=\"Edit/<#= Id #>\">Chỉnh sửa</a>")
+                            .Title("Chỉnh sửa");
+                    })
+                    .DataBinding(dataBinding => dataBinding.Ajax().Select("List", "Topic"))
+                    .EnableCustomBinding(true))
+        </td>
+    </tr>
+</table>

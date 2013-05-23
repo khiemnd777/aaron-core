@@ -1,0 +1,121 @@
+﻿@using Telerik.Web.Mvc.UI
+@using Aaron.Admin.Models.Catalogs
+
+@{
+    ViewBag.Title = "Quản lý Template Danh Mục";
+}
+
+<div class="section-header">
+    <div class="title">
+        Quản lý Template Danh Mục
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<CatalogTemplateModel>()
+        .Name("Grid")
+        .DataKeys(keys => keys.Add(p => p.Id).RouteKey("Id"))
+        .ToolBar(commands => commands.Insert().Text("Thêm Mới"))
+        
+        .DataBinding(dataBinding =>
+            dataBinding.Ajax()
+                        .Select("GetCatalogTemplates", "Templates")
+                        .Update("UpdateCatalogTemplate", "Templates")
+                        .Delete("DeleteCatalogTemplate", "Templates")
+                        .Insert("AddCatalogTemplate", "Templates")
+                        
+        )
+        .Columns(columns =>
+                     {
+                         columns.Bound(p => p.Name).Width(210);
+                         columns.Bound(p => p.ViewPath).Width(350);
+                         columns.Bound(p => p.OldViewPath).Hidden();
+                         columns.Bound(p => p.DisplayOrder).Width(150);
+                         columns.Bound(p => p.Published)
+                             .ClientTemplate("<input type='checkbox' disabled='disabled' name='Published' <#= Published? checked='checked' : '' #> />")
+                             .Width(50);
+                         columns.Command(commands =>
+                                             {
+                                                 commands.Edit().CancelText("Hủy").UpdateText("Lưu").InsertText("Thêm");
+                                                 commands.Delete().Text("Xóa");
+
+                                             }).Width(180);
+                     })
+        .ClientEvents(events => events.OnError("grid_onError"))
+        .Editable(editing => editing.Mode(GridEditMode.InLine).DefaultDataItem(new CatalogTemplateModel()))
+        .Pageable()
+        .Scrollable()
+        .Sortable()        
+)
+<script type="text/javascript">
+    function grid_onError(e) {
+        alert(e.XMLHttpRequest.responseText);
+        e.preventDefault();
+    }
+</script>
+
+        </td>
+    </tr>
+</table>
+@* Ajax way, not recommended
+<table class="adminContent">
+    <tr>
+        <td>
+@(Html.Telerik().Grid<CatalogTemplateModel>()
+        .Name("Grid")
+        .DataKeys(keys => keys.Add(p => p.Id))
+        .ToolBar(commands => {
+            commands.Insert().Text("Thêm mới");
+            commands.SubmitChanges().SaveText("Lưu").CancelText("Bỏ qua");
+        })
+        .DataBinding(dataBinding =>
+            dataBinding.Ajax()
+                        .Select("_SelectCatalogBatchEditing", "Templates")
+                        .Update("_SaveCatalogBatchEditing", "Templates")
+        )
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.Name).Width(210);
+            columns.Bound(p => p.ViewPath).Width(130);
+            columns.Bound(p => p.DisplayOrder).Width(130);
+            columns.Bound(p => p.Published)
+                   .ClientTemplate("<input type='checkbox' disabled='disabled' name='Published' <#= Published? checked='checked' : '' #> />")
+                   .Width(50);
+            columns.Command(commands => commands.Delete().Text("Xóa")).Width(180);
+        })
+        .ClientEvents(events => events.OnDataBinding("Grid_onDataBinding").OnError("Grid_onError"))
+            .Editable(editing => editing.Mode(GridEditMode.InCell).DefaultDataItem(new CatalogTemplateModel()))
+        .Pageable()
+        .Scrollable()
+        .Sortable()        
+)        
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    function Grid_onError(args) {
+        if (args.textStatus == "modelstateerror" && args.modelState) {
+            var message = "Errors:\n";
+            $.each(args.modelState, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            args.preventDefault();
+            alert(message);
+        }
+    }
+    function Grid_onDataBinding(e) {
+        var grid = $(this).data('tGrid');
+        if (grid.hasChanges()) {
+            if (!confirm('You are going to lose any unsaved changes. Are you sure?')) {
+                e.preventDefault();
+            }
+        }
+    }
+</script>
+*@

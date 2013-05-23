@@ -1,0 +1,79 @@
+﻿@model Aaron.Admin.Models.Settings.WebInformationSettingsModel
+@using Telerik.Web.Mvc.UI
+
+@{
+    ViewBag.Title = "Cấu hình chung";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <div class="section-header">
+        <div class="title">
+            Cấu hình chung
+        </div>
+        <div class="options">
+            <input type="submit" value="Lưu" class="t-button" />
+        </div>
+    </div>
+    
+    <table class="adminContent">
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.WebName)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.WebName)
+            @Html.ValidationMessageFor(model => model.WebName)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.WebUrl)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.WebUrl)
+            @Html.ValidationMessageFor(model => model.WebUrl)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.WebClosed)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.WebClosed)
+            @Html.ValidationMessageFor(model => model.WebClosed)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.WebClosedAllowForAdmins)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.WebClosedAllowForAdmins)
+            @Html.ValidationMessageFor(model => model.WebClosedAllowForAdmins)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.AllowAccountToSelectTheme)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.AllowAccountToSelectTheme)
+            @Html.ValidationMessageFor(model => model.AllowAccountToSelectTheme)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.DefaultWebThemeForDesktops)
+        </td>
+        <td class="adminData">
+            @(Html.Telerik().DropDownListFor(model => model.DefaultWebThemeForDesktops)
+                .BindTo(Model.AvailableWebThemeForDesktops))
+            @Html.ValidationMessageFor(model => model.DefaultWebThemeForDesktops)
+        </td>
+        </tr>
+    </table>
+}

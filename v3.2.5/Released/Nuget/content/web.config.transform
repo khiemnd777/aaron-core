@@ -1,0 +1,16 @@
+<configuration>
+	<appSettings>
+		<add key="dependencyResolverTypeName" value="Aaron.Registrar.KernelRegistrar, Aaron.Registrar" />
+		<add key="redirectToActionAfterInstall" value="Home/Index" />
+	        <add key="ClearPluginsShadowDirectoryOnStartup" value="False" />
+	</appSettings>
+	<system.web>
+		<pages>
+	      		<namespaces>
+				<add namespace="Telerik.Web.Mvc.UI" />
+	        		<add namespace="Aaron.Core.Web" />
+        			<add namespace="Aaron.Core.Web.UI" />
+		      	</namespaces>
+    		</pages>
+	</system.web>
+</configuration>

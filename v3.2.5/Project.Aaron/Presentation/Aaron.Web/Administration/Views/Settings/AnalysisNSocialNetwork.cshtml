@@ -1,0 +1,56 @@
+﻿@model Aaron.Admin.Models.Settings.AnalysisNSocialNetworkSettingsModel
+@using Telerik.Web.Mvc.UI
+@{
+    ViewBag.Title = "Cấu hình Analysis và MXH";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <div class="section-header">
+        <div class="title">
+            Cấu hình Analysis và MXH
+        </div>
+        <div class="options">
+            <input type="submit" value="Lưu" class="t-button" />
+        </div>
+    </div>
+    <table class="adminContent">
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.GoogleAnalysis)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.GoogleAnalysis)
+            @Html.ValidationMessageFor(model => model.GoogleAnalysis)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.GoogleInitCode)
+        </td>
+        <td class="adminData">
+            @Html.TextAreaFor(model => model.GoogleInitCode)
+            @Html.ValidationMessageFor(model => model.GoogleInitCode)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.FacebookID)
+        </td>
+        <td class="adminData">
+            @Html.EditorFor(model => model.FacebookID)
+            @Html.ValidationMessageFor(model => model.FacebookID)
+        </td>
+        </tr>
+        <tr>
+        <td class="adminTitle">
+            @Html.LabelFor(model => model.FacebookInitCode)
+        </td>
+        <td class="adminData">
+            @Html.TextAreaFor(model => model.FacebookInitCode)
+            @Html.ValidationMessageFor(model => model.FacebookInitCode)
+        </td>
+        </tr>
+    </table>
+}

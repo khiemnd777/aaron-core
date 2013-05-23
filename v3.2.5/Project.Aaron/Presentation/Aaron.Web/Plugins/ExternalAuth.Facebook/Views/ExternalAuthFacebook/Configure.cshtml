@@ -1,0 +1,34 @@
+﻿@{
+    Layout = "";
+}
+@model Aaron.Plugin.ExternalAuth.Facebook.Models.ConfigurationModel
+@using Aaron.Core.Web;
+@using (Html.BeginForm())
+{
+    <table class="adminContent">
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.ClientKeyIdentifier):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.ClientKeyIdentifier)
+                @Html.ValidationMessageFor(model => model.ClientKeyIdentifier)
+            </td>
+        </tr>
+        <tr>
+            <td class="adminTitle">
+                @Html.LabelFor(model => model.ClientSecret):
+            </td>
+            <td class="adminData">
+                @Html.EditorFor(model => model.ClientSecret)
+                @Html.ValidationMessageFor(model => model.ClientSecret)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" width="100%">
+                <input type="submit" name="save" class="t-button" value="Lưu" />
+            </td>
+        </tr>
+    </table>
+    
+}

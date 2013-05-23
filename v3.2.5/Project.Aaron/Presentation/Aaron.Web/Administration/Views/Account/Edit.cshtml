@@ -1,0 +1,20 @@
+﻿@model Aaron.Admin.Models.Accounts.AccountModel
+@using Aaron.Core.Web;
+@{
+    ViewBag.Title = string.Format("Chi tiết tài khoản {0}", Model.Email);
+}
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            Chi tiết tài khoản @Model.Email | @Html.ActionLink("Back to List", "Index")
+        </div>
+        <div class="options">
+            <input type="submit" value="Save" name="save" class="t-button" />
+            <span id="remove-account" class="t-button">Xóa</span>
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model);
+}
+@Html.DeleteConfirmation("remove-account")

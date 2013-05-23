@@ -1,0 +1,18 @@
+﻿@model Aaron.Admin.Models.Catalogs.GenericCatalogModel
+
+@{
+    ViewBag.Title = "Tạo mới danh mục động";
+}
+
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            Add new @Html.ActionLink("Back to list", "List")
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="t-button" value="Save" />
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model)
+}

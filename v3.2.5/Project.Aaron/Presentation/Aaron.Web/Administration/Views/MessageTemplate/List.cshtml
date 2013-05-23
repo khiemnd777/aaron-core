@@ -1,0 +1,38 @@
+﻿@model Telerik.Web.Mvc.GridModel<MessageTemplateModel>
+@using Telerik.Web.Mvc.UI
+@using Aaron.Admin.Models.Messages
+@{
+    //page title
+    ViewBag.Title = "Quản lý Mẫu tin nhắn";
+}
+<div class="section-header">
+    <div class="title">
+        <img src="@Url.Content("~/Administration/Content/images/ico-content.png")" alt="" />
+        Quản lý Mẫu tin nhắn
+    </div>
+    <div class="options">
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<MessageTemplateModel>(Model.Data)
+                    .Name("templates-grid")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.Name)
+                            .Width(400);
+                        columns.Bound(x => x.IsActive)
+                            .Width(100)
+                            .Template(x => x.IsActive.ToString().ToLower());
+                        columns.Bound(x => x.Id)
+                            .Width(50)
+                            .Template(x => Html.ActionLink("Chỉnh sửa", "Edit", new { id = x.Id }))
+                            .ClientTemplate("<a href=\"Edit/<#= Id #>\">Chỉnh sửa</a>")
+                            .Title("Chỉnh sửa");
+                    })
+                    .DataBinding(dataBinding => dataBinding.Ajax().Select("List", "MessageTemplate"))
+                    .EnableCustomBinding(true))
+        </td>
+    </tr>
+</table>

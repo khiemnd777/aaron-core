@@ -1,0 +1,50 @@
+﻿@model Telerik.Web.Mvc.GridModel<Aaron.Admin.Models.Catalogs.GenericCatalogGridModel>
+@using Telerik.Web.Mvc.UI
+@{
+    var gridPageSize = 5;
+    
+    ViewBag.Title = "Quản lý danh mục động";
+}
+
+<div class="section-header">
+    <div class="title">
+        Quản lý Danh mục động
+    </div>
+    <div class="options">
+        <a href="@Url.Action("Create")" class="t-button">Add new</a>
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+            @(Html.Telerik().Grid<Aaron.Admin.Models.Catalogs.GenericCatalogGridModel>()
+                    .Name("generic-catalogs-grid")
+                    .DataKeys(x => x.Add(y => y.Id).RouteKey("Id"))
+                    .BindTo(Model.Data)
+                    .Columns(columns =>
+                    {
+                        columns.Bound(x => x.Name)
+                            .Width(350);
+                        columns.Bound(x => x.DisplayOrder)
+                            .Width(100);
+                        columns.Bound(x => x.BlockViewId)
+                            .Width(100);
+                        columns.Bound(x => x.Published)
+                            .Width(100)
+                            .Template(x => x.Published.ToString().ToLower());
+                        columns.Bound(x => x.Id)
+                            .Template(x => Html.ActionLink("Edit", "Edit", new { id = x.Id }))
+                            .ClientTemplate("<a href=\"Edit/<#= Id #>\">Edit</a>")
+                            .Width(50)
+                            .HeaderTemplate("Edit");
+                    })
+                    .Pageable(settings => settings.Total(Model.Total).PageSize(gridPageSize).Position(GridPagerPosition.Both))
+                    //.Pageable(paging => paging.Style(GridPagerStyles.Status).PageOnScroll(true)) 
+                    .DataBinding(dataBinding =>
+                                     {
+                                         dataBinding.Ajax().Select("List", "GenericCatalog");
+                                     })
+                    .EnableCustomBinding(true))
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,45 @@
+﻿@model Aaron.Admin.Models.Catalogs.CatalogRecordModel
+@using Aaron.Core.Domain.Common;
+@using Telerik.Web.Mvc.UI;
+
+@switch(Model.Type)
+{
+    case AttributeControlType.CheckBox:
+        {
+            @Html.CheckBox(Model.InputName, Model.Value)
+            break;
+        }
+    case AttributeControlType.RadioList:
+        {
+            @Html.RadioButton(Model.InputName, Model.Value, true)
+            break;
+        }
+    case AttributeControlType.DatePicker:
+        {
+            @(Html.Telerik().DatePicker().Name(Model.InputName).Value(Model.Value))
+            break;
+        }
+    case AttributeControlType.DropDownList:
+        {
+            @Html.DropDownList(Model.InputName)
+            break;
+        }
+    case AttributeControlType.FileUpload:
+        {
+            
+            break;
+        }
+    case AttributeControlType.MultilineTextbox:
+        {
+            @Html.Telerik().Editor().Name(Model.InputName).Value(Model.Value).Encode(false).Tools(tools=>tools.ViewHTML())
+            @*@Html.TextArea(Model.InputName, Model.Value, new {@id = Model.InputName})*@
+
+    
+            break;
+        }
+    default:
+        {
+            @Html.TextBox(Model.InputName, Model.Value, new { @id = Model.InputName })
+            break;
+        }
+}

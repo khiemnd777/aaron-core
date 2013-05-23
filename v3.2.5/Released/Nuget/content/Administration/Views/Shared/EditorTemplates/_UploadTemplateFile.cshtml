@@ -1,0 +1,13 @@
+﻿@using Aaron.Core.Infrastructure
+@using Telerik.Web.Mvc.UI
+@model string
+            
+@Html.EditorFor(model =>model)
+@(Html.Telerik().Upload()
+            .Name("templateAttachments")
+            .Multiple(false)
+            .Async(async => async
+                    .Save("SaveFileUpload", "Templates")
+                    .Remove("RemoveFileUpload", "Templates")
+                    .AutoUpload(true))
+                    )

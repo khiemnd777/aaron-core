@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Aaron.Admin.Models.Catalogs.GenericCatalogEditableModel>
+@{
+    var availableCatalogs = (List<Aaron.Admin.Models.Catalogs.CatalogEditableModel>)ViewData["AvailableCatalogs"];
+}
+<table class="adminContent">
+    @foreach (var m in Model)
+    {
+    <tr>
+        <td class="adminTitle"><strong>@m.Name</strong></td>
+        <td class="adminData">
+            <table class="adminContent">
+                @foreach (var c in m.Catalogs)
+                {
+                    var allowed = (availableCatalogs != null && availableCatalogs.Count > 0) ? availableCatalogs.Contains(c) : false;
+                    <tr>
+                        <td><input id="allow" class="allow" type="checkbox" value="@(c.Id)" name="allow" @(allowed ? " checked=checked" : null) /> @c.Name</td>
+                    </tr>
+                }
+            </table>
+        </td>
+    </tr>
+    }
+</table>

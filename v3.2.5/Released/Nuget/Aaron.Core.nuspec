@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Aaron.Core</id>
+    <version>3.2.1</version>    
+    <description>It's a special architect (written base on C#) be used to build programs as web-app, windows-app; help your project become standardization. It provides the standard platform, including core systems, data flows and other utilities,... ready to serve a normal web-app (support Sqlserver, sqlce)...</description>
+    <authors>Kandy Nguyen</authors>
+    <tags>core dependency aaron architect</tags>
+    <language>en-US</language>
+  </metadata>
+  <files>
+    <file src="..\Nuget\lib\Aaron.Core.dll" target="lib\net40"/>
+    <file src="..\Nuget\lib\Aaron.Core.dll" target="lib\net45"/>
+  </files>
+</package>

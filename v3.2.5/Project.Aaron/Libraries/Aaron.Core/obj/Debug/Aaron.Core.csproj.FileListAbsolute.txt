@@ -1,0 +1,11 @@
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\bin\Debug\Aaron.Core.dll.config
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\bin\Debug\Aaron.Core.dll
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\bin\Debug\Aaron.Core.pdb
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\bin\Debug\Autofac.Configuration.dll
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\bin\Debug\Autofac.dll
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\bin\Debug\Autofac.Integration.Mvc.dll
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\bin\Debug\Telerik.Web.Mvc.dll
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\bin\Debug\Autofac.xml
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\obj\Debug\Aaron.Core.csprojResolveAssemblyReference.cache
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\obj\Debug\Aaron.Core.dll
+F:\SkyDrive\$ Study\$ Projects\$ Aaron Core All Versions\v3.2.5\Project.Aaron\Libraries\Aaron.Core\obj\Debug\Aaron.Core.pdb

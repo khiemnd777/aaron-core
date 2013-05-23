@@ -1,0 +1,53 @@
+﻿@using Telerik.Web.Mvc.UI;
+@using Aaron.Core.Infrastructure;
+@using Aaron.Core.Services.Security;
+@using Aaron.Core.Domain.Security;
+@{
+    if (!Telerik.Web.Mvc.SiteMapManager.SiteMaps.ContainsKey("admin"))
+    {
+        Telerik.Web.Mvc.SiteMapManager.SiteMaps.Register<Telerik.Web.Mvc.XmlSiteMap>("admin", sitemap =>
+            sitemap.LoadFrom("~/Administration/sitemap.config"));
+    }
+
+    var permissionService = IoC.Resolve<IPermissionService>();
+    var hideAdminMenuItemsBasedOnPermissions = IoC.Resolve<SecuritySettings>().HideAdminMenuItemsBasedOnPermissions;
+}
+@{
+    Html.Telerik().Menu().Name("Admin")
+    .BindTo("admin", (item, siteMapNode) =>
+    {
+        var imageUrl = ((Telerik.Web.Mvc.SiteMapNode)siteMapNode).Attributes["ImageUrl"];
+        if (imageUrl != null && !string.IsNullOrEmpty(imageUrl.ToString()))
+        {
+            item.ImageUrl = imageUrl.ToString();
+        }
+        
+        var text = ((Telerik.Web.Mvc.SiteMapNode)siteMapNode).Attributes["Text"];
+        if (text != null && !string.IsNullOrEmpty(text.ToString()))
+        {
+            item.Text = text.ToString();
+        }
+
+        if (ViewBag.SelectedMenuItem == item.Text)
+        {
+            item.Selected = true;
+        }
+
+        if (hideAdminMenuItemsBasedOnPermissions)
+        {
+            var permissionNames = ((Telerik.Web.Mvc.SiteMapNode)siteMapNode).Attributes["PermissionNames"];
+            if (permissionNames != null && !string.IsNullOrEmpty(permissionNames.ToString()))
+            {
+                item.Visible = permissionNames.ToString().Split(new char[] {','}, StringSplitOptions.RemoveEmptyEntries)
+                    .Any(permissionName => permissionService.Authorize(permissionName.Trim()));
+            }
+        }        
+    })
+    .Items(x =>
+    {
+        
+    })
+    .OpenOnClick(false)
+
+    .Render();
+}

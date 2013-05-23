@@ -1,0 +1,20 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+@Html.Widget("body_start_html_tag_after")
+<div class="master-wrapper-page">
+    <div class="master-wrapper-content">
+        @Html.Widget("content_before")
+        @*ajax loading window*@
+        <div class="ajax-loading-block-window" style="display: none">
+            <div class="loading-image">
+            </div>
+        </div>
+        <div class="master-wrapper-main">
+            @RenderBody()
+        </div>
+        @Html.Widget("content_after")
+    </div>
+    @Html.Partial("_Footer")
+</div>
+@Html.Widget("body_end_html_tag_before")

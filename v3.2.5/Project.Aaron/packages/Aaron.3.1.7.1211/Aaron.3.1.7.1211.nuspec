@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Aaron</id>
+    <version>3.1.7.1211</version>
+    <authors>Kandy Nguyen</authors>
+    <owners>Kandy Nguyen</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>It's a special architect (written base on C#) be used to build programs as web-app, windows-app; help your project become standardization. It provides the standard platform, including core systems, data flows and other utilities,... ready to serve a normal web-app (support Sqlserver, sqlce)...</description>
+    <language>en-US</language>
+    <tags>core dependency aaron architect</tags>
+    <dependencies>
+      <dependency id="Ninject.MVC3" version="3.0.0.6" />
+      <dependency id="Ninject.extensions.conventions" version="3.0.0.11" />
+      <dependency id="EntityFramework" version="4.1.10715.0" />
+    </dependencies>
+  </metadata>
+</package>

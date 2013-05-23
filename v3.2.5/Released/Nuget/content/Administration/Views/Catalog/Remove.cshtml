@@ -1,0 +1,15 @@
+﻿@model Aaron.Admin.Models.Catalogs.CatalogModel
+@{
+    ViewBag.Title = "Delete";
+}
+<h2>Delete</h2>
+<fieldset>
+    <legend>Catalog</legend>
+    <h3>Are you sure you want to delete "<span style="color: red">@Model.Name</span>"?</h3>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

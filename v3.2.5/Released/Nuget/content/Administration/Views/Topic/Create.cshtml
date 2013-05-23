@@ -1,0 +1,20 @@
+﻿@model TopicModel
+@using Aaron.Admin.Models.Topics
+@{    
+    //page title
+    ViewBag.Title = "Thêm mới Chủ đề";
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            <img src="@Url.Content("~/Administration/Content/images/ico-content.png")" alt="" />
+            Thêm mới chủ đề @Html.ActionLink("(Trở về danh sách)", "List")
+        </div>
+        <div class="options">
+            <input type="submit" name="save" class="t-button" value="Lưu" />
+            <input type="submit" name="save-continue" class="t-button" value="Lưu và chỉnh sửa" />
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model)
+}

@@ -1,0 +1,11 @@
+﻿@using Aaron.Core.Web.UI
+@{
+    Layout = "";
+
+    Html.AddCssFileParts("~/Plugins/ExternalAuth.Facebook/Content/facebookstyles.css");    
+}
+<fieldset class="facebook-login-block">
+    <legend>Đăng nhập bằng Facebook</legend>
+    <a href="@Url.RouteUrl("Plugin.ExternalAuth.Facebook.Login", new { ReturnUrl = HttpContext.Current.Request.QueryString["ReturnUrl"] })" class="facebook-btn">
+        &nbsp;</a>
+</fieldset>

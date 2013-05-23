@@ -1,0 +1,85 @@
+﻿@model Telerik.Web.Mvc.GridModel<NoticeModel>
+
+@using Telerik.Web.Mvc.UI
+@using Aaron.Admin.Models.Common
+@{
+    ViewBag.Title = "Quản lý Thông báo";
+}
+<div class="section-header">
+    <div class="title">
+        Quản lý Thông báo
+    </div>
+    <div class="options">
+        <a href="@Url.Action("Create")" class="t-button">Add new</a>
+    </div>
+</div>
+<table class="adminContent">
+    <tr>
+        <td>
+@(Html.Telerik().Grid<NoticeModel>()
+        .Name("Grid")
+        .DataKeys(keys => 
+        {
+            keys.Add(n => n.Id).RouteKey("Id");
+        })
+        .BindTo(Model.Data)
+        .ToolBar(commands => {
+            commands.Insert();
+            commands.SubmitChanges();
+        })
+        .Columns(columns =>
+        {
+            columns.Bound(n => n.Name)
+                .Width(300);
+            columns.Bound(n => n.CreationDate)
+                .ReadOnly()
+                .Width(130);
+            columns.Bound(n => n.Published).Width(130);
+            columns.Bound(n => n.Id)
+                    .ReadOnly()
+                    .Template(x => Html.ActionLink("Chi Tiết", "EditNotice", new {noticeId = x.Id}))
+                    .Width(180);
+            columns.Command(commands => commands.Delete()).Width(180)
+                .Title("Xóa");
+            columns.Command(command => command.Select()).Width(180)
+                .Title("Đặt thông báo");
+        })
+        .DataBinding(dataBinding =>
+            dataBinding.Ajax()
+                .Select("List", "Notice")
+                .Update("_SaveBatchEditing", "Notice")
+        )
+        .EnableCustomBinding(true)
+        .ClientEvents(events => events.OnDataBinding("Grid_onDataBinding").OnError("Grid_onError"))
+        .Editable(editing => editing.Mode(GridEditMode.InCell).DefaultDataItem(new NoticeModel()))
+        .Pageable()
+        .Scrollable()
+        .Sortable()       
+)
+            </td>
+        </tr>
+    </table>
+<script type="text/javascript">
+        function Grid_onError(args) {
+        if (args.textStatus == "modelstateerror" && args.modelState) {
+            var message = "Errors:\n";
+            $.each(args.modelState, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function() {
+                        message += this + "\n";
+                    });
+                }
+            });
+            args.preventDefault();
+            alert(message);
+        }
+    }
+    function Grid_onDataBinding(e) {
+        var grid = $(this).data('tGrid');
+        if (grid.hasChanges()) {
+            if (!confirm('You are going to lose any unsaved changes. Are you sure?')) {
+                e.preventDefault();
+            }
+        }
+    }
+</script>

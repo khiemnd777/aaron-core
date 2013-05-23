@@ -1,0 +1,117 @@
+﻿@model Aaron.Admin.Models.Catalogs.CatalogModel
+@using Telerik.Web.Mvc.UI;
+@{
+    ViewBag.Title = "Tạo mới danh mục";
+}
+@using (Html.BeginForm())
+{
+    <div class="section-header">
+        <div class="title">
+            Tạo mới danh mục | @Html.ActionLink("Back to List", "Index")
+        </div>
+        <div class="options">
+            <input type="submit" value="Save" class="t-button" />
+        </div>
+    </div>
+    @Html.Partial("_CreateOrUpdate", Model);
+}
+@*<h2>Create</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <p>
+        
+        <input type="submit" value="Create" class="t-button" />
+    </p>
+    
+    @(Html.Telerik().TabStrip().Name("Create")
+    .Items(items =>
+    {
+        items.Add().Text("Thông tin cơ bản").Selected(true)
+            
+            .Content(
+                @<div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Name)
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.GenericCatalogId)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("GenericCatalogId")
+                        @Html.ValidationMessageFor(model => model.GenericCatalogId)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.TemplateId)
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownList("TemplateId")
+                        @Html.ValidationMessageFor(model => model.TemplateId)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Published)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Published)
+                        @Html.ValidationMessageFor(model => model.Published)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DisplayOrder)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.DisplayOrder)
+                        @Html.ValidationMessageFor(model => model.DisplayOrder)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Avatar)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.Avatar)
+                        @Html.ValidationMessageFor(model => model.Avatar)
+                    </div>
+                </div>
+            );
+        items.Add().Text("SEO")
+            .Content(
+                @<div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.SEOUrlName)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.SEOUrlName)
+                        @Html.ValidationMessageFor(model => model.SEOUrlName)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.MetaTitle)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.MetaTitle)
+                        @Html.ValidationMessageFor(model => model.MetaTitle)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.MetaKeywords)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.MetaKeywords)
+                        @Html.ValidationMessageFor(model => model.MetaKeywords)
+                    </div>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.MetaDescription)
+                    </div>
+                    <div class="editor-field">
+                        @Html.EditorFor(model => model.MetaDescription)
+                        @Html.ValidationMessageFor(model => model.MetaDescription)
+                    </div>
+                </div>
+            );
+    })
+    )
+}
+<div>
+    @Html.ActionLink("Back to List", "Index", "CatalogManager")
+</div>
+*@

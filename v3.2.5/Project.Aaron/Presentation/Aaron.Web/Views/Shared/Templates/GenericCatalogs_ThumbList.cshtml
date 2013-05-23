@@ -1,0 +1,18 @@
+﻿@model GenericCatalogModel
+@using Zion.Web.Models.Catalogs;
+@using Zion.Services.Catalogs;
+
+<div class="genericcatalog-list-container">
+@foreach (var x in Model.CatalogModels)
+{
+    <div class="genericcatalog-part fl">
+        <div class="catalog-info-avatar">
+            <a href="@Url.Action("Items", "Catalog", new { Id= x.Id })">
+                <img alt="@x.CatalogName" src="@Url.Content(x.Avatar.DisplayDefaultAvatar())" />
+                <span>@x.CatalogName</span>
+            </a>
+        </div>
+    </div>
+}
+    <div class="clr"></div>
+</div>
