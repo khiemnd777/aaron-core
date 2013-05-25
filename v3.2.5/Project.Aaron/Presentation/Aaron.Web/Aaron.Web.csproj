@@ -288,9 +288,13 @@
     </Compile>
     <Compile Include="Models\Accounts\ExternalAuthenticationMethodModel.cs" />
     <Compile Include="Models\Accounts\LoginModel.cs" />
+    <Compile Include="Models\Accounts\PasswordRecoveryConfirmModel.cs" />
+    <Compile Include="Models\Accounts\PasswordRecoveryModel.cs" />
     <Compile Include="Models\Cms\RenderWidgetModel.cs" />
     <Compile Include="Models\Common\FaviconModel.cs" />
     <Compile Include="Models\Common\FeatureNotificationModel.cs" />
+    <Compile Include="Models\Common\LanguageModel.cs" />
+    <Compile Include="Models\Common\LanguageSelectorModel.cs" />
     <Compile Include="Models\Common\NoticeModel.cs" />
     <Compile Include="Models\Topics\TopicModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1771,7 +1775,10 @@
     <Content Include="Administration\Views\Language\List.cshtml" />
     <Content Include="Administration\Views\Language\Resources.cshtml" />
     <Content Include="Administration\Views\Language\_CreateOrUpdate.cshtml" />
+    <Content Include="Administration\Views\Shared\Notifications.cshtml" />
     <None Include="Properties\PublishProfiles\Pls.pubxml" />
+    <Content Include="Views\Account\PasswordRecovery.cshtml" />
+    <Content Include="Views\Account\PasswordRecoveryConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

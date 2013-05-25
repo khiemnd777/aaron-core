@@ -182,7 +182,7 @@ namespace Aaron.Admin.Controllers
                     MetaKeywords = model.MetaKeywords,
                     MetaTitle = model.MetaTitle,
                     Password = model.Password,
-                    SystemName = (!string.IsNullOrEmpty(model.SystemName)) ? model.SystemName : model.Title.ToSEName(),
+                    SystemName = model.SystemName,
                     Title = model.Title
                 };
                 _topicService.InsertTopic(topic);
@@ -261,7 +261,7 @@ namespace Aaron.Admin.Controllers
                 topic.MetaKeywords = model.MetaKeywords;
                 topic.MetaTitle = model.MetaTitle;
                 topic.Password = model.Password;
-                topic.SystemName = (!string.IsNullOrEmpty(model.SystemName)) ? model.SystemName : model.Title.ToSEName();
+                topic.SystemName = model.SystemName;
                 topic.Title = model.Title;
                 _topicService.UpdateTopic(topic);
                 //locales
