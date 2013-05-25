@@ -29,7 +29,7 @@
     <table class="adminContent">
         <tr>
             <td class="adminTitle">
-                @Html.LabelFor(model => model.SystemName):
+                @Html.AaronLabelFor(model => model.SystemName):
             </td>
             <td class="adminData">
                 @Html.EditorFor(model => model.SystemName)
@@ -38,7 +38,7 @@
         </tr>
         <tr>
             <td class="adminTitle">
-                @Html.LabelFor(model => model.IsPasswordProtected):
+                @Html.AaronLabelFor(model => model.IsPasswordProtected):
             </td>
             <td class="adminData">
                 @Html.EditorFor(model => model.IsPasswordProtected)
@@ -47,7 +47,7 @@
         </tr>
         <tr id="pnlPasswordEnabled">
             <td class="adminTitle">
-                @Html.LabelFor(model => model.Password):
+                @Html.AaronLabelFor(model => model.Password):
             </td>
             <td class="adminData">
                 @Html.EditorFor(model => model.Password)
@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <td class="adminTitle">
-                @Html.LabelFor(model => model.IncludeInSitemap):
+                @Html.AaronLabelFor(model => model.IncludeInSitemap):
             </td>
             <td class="adminData">
                 @Html.EditorFor(x => x.IncludeInSitemap)
@@ -67,7 +67,7 @@
         {
             <tr>
                 <td class="adminTitle">
-                    @Html.LabelFor(model => model.Url):
+                    @Html.AaronLabelFor(model => model.Url):
                 </td>
                 <td class="adminData">
                     <a href="@Model.Url">@Model.Url</a>
@@ -79,7 +79,7 @@
                 @<table class="adminContent">
                     <tr>
                         <td class="adminTitle">
-                            @Html.LabelFor(model => model.Locales[item].Title):
+                            @Html.AaronLabelFor(model => model.Locales[item].Title):
                         </td>
                         <td class="adminData">
                             @Html.EditorFor(model => Model.Locales[item].Title)
@@ -88,7 +88,7 @@
                     </tr>
                     <tr>
                         <td class="adminTitle">
-                            @Html.LabelFor(model => model.Locales[item].Body):
+                            @Html.AaronLabelFor(model => model.Locales[item].Body):
                         </td>
                         <td class="adminData">
                             @Html.EditorFor(model => model.Locales[item].Body, "RichEditor")
@@ -105,7 +105,7 @@
                 @<table class="adminContent">
                     <tr>
                         <td class="adminTitle">
-                            @Html.LabelFor(model => model.Title):
+                            @Html.AaronLabelFor(model => model.Title):
                         </td>
                         <td class="adminData">
                             @Html.EditorFor(model => model.Title)
@@ -114,7 +114,7 @@
                     </tr>
                     <tr>
                         <td class="adminTitle">
-                            @Html.LabelFor(model => model.Body):
+                            @Html.AaronLabelFor(model => model.Body):
                         </td>
                         <td class="adminData">
                             @Html.EditorFor(x => x.Body, "RichEditor")
@@ -130,7 +130,7 @@
                @<table class="adminContent">
                    <tr>
                        <td class="adminTitle">
-                           @Html.LabelFor(model => model.Locales[item].MetaKeywords):
+                           @Html.AaronLabelFor(model => model.Locales[item].MetaKeywords):
                        </td>
                        <td class="adminData">
                            @Html.EditorFor(model => model.Locales[item].MetaKeywords)
@@ -139,7 +139,7 @@
                    </tr>
                    <tr>
                        <td class="adminTitle">
-                           @Html.LabelFor(model => model.Locales[item].MetaDescription):
+                           @Html.AaronLabelFor(model => model.Locales[item].MetaDescription):
                        </td>
                        <td class="adminData">
                            @Html.TextAreaFor(model => model.Locales[item].MetaDescription)
@@ -148,7 +148,7 @@
                    </tr>
                    <tr>
                        <td class="adminTitle">
-                           @Html.LabelFor(model => model.Locales[item].MetaTitle):
+                           @Html.AaronLabelFor(model => model.Locales[item].MetaTitle):
                        </td>
                        <td class="adminData">
                            @Html.EditorFor(model => model.Locales[item].MetaTitle)
@@ -165,7 +165,7 @@
                @<table class="adminContent">
                    <tr>
                        <td class="adminTitle">
-                           @Html.LabelFor(model => model.MetaKeywords):
+                           @Html.AaronLabelFor(model => model.MetaKeywords):
                        </td>
                        <td class="adminData">
                            @Html.EditorFor(x => x.MetaKeywords)
@@ -174,7 +174,7 @@
                    </tr>
                    <tr>
                        <td class="adminTitle">
-                           @Html.LabelFor(model => model.MetaDescription):
+                           @Html.AaronLabelFor(model => model.MetaDescription):
                        </td>
                        <td class="adminData">
                            @Html.TextAreaFor(x => x.MetaDescription)
@@ -183,7 +183,7 @@
                    </tr>
                    <tr>
                        <td class="adminTitle">
-                           @Html.LabelFor(model => model.MetaTitle):
+                           @Html.AaronLabelFor(model => model.MetaTitle):
                        </td>
                        <td class="adminData">
                            @Html.EditorFor(x => x.MetaTitle)

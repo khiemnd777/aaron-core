@@ -8,26 +8,63 @@ using Aaron.Core.Web;
 using Aaron.Core.Services.Common;
 using System.Text;
 using Aaron.Core.Domain.Localization;
+using Aaron.Core.Web.Localization;
 using Aaron.Core.Services.Localization;
+using Aaron.Core;
+using Aaron.Core.Caching;
 
 namespace Aaron.Web.Controllers
 {
     public class CommonController : BaseController
     {
+        public const string AVAILABLE_LANGUAGES_MODEL_KEY = "Aaron.pres.languages.all";
+
         private readonly IWebHelper _webHelper;
         private readonly INoticeService _noticeService;
         private readonly LocalizationSettings _localizationSettings;
         private readonly ILanguageService _languageService;
+        private readonly ICurrentActivity _currentActivity;
+        private readonly ICacheManager _cacheManager;
 
         public CommonController(IWebHelper webHelper,
             INoticeService noticeService,
             LocalizationSettings localizationSettings,
-            ILanguageService languageService)
+            ILanguageService languageService,
+            ICurrentActivity currentActivity,
+            ICacheManager cacheManager)
         {
             _webHelper = webHelper;
             _noticeService = noticeService;
             _localizationSettings = localizationSettings;
             _languageService = languageService;
+            _currentActivity = currentActivity;
+            _cacheManager = cacheManager;
+        }
+
+        [NonAction]
+        protected LanguageSelectorModel PrepareLanguageSelectorModel()
+        {
+            var availableLanguages = _cacheManager.Get(AVAILABLE_LANGUAGES_MODEL_KEY, () =>
+            {
+                var result = _languageService
+                    .GetAllLanguages()
+                    .Select(x => new LanguageModel()
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        FlagImageFileName = x.FlagImageFileName,
+                    })
+                    .ToList();
+                return result;
+            });
+
+            var model = new LanguageSelectorModel()
+            {
+                CurrentLanguageId = _currentActivity.CurrentLanguage.Id,
+                AvailableLanguages = availableLanguages,
+                UseImages = _localizationSettings.UseImagesForLanguageSelection
+            };
+            return model;
         }
 
         public ActionResult BackHome()
@@ -127,6 +164,41 @@ namespace Aaron.Web.Controllers
             Response.ContentType = "text/plain";
             Response.Write(sb.ToString());
             return null;
+        }
+
+        //language
+        [ChildActionOnly]
+        public ActionResult LanguageSelector()
+        {
+            var model = PrepareLanguageSelectorModel();
+            return PartialView(model);
+        }
+
+        public ActionResult SetLanguage(int langid, string returnUrl = "")
+        {
+            var language = _languageService.GetLanguageById(langid);
+            if (language != null && language.Published)
+            {
+                _currentActivity.CurrentLanguage = language;
+            }
+
+            //url referrer
+            if (String.IsNullOrEmpty(returnUrl))
+                returnUrl = _webHelper.GetUrlReferrer();
+            //home page
+            if (String.IsNullOrEmpty(returnUrl))
+                returnUrl = Url.RouteUrl("HomePage");
+            if (_localizationSettings.SeoFriendlyUrlsForLanguagesEnabled)
+            {
+                string applicationPath = HttpContext.Request.ApplicationPath;
+                if (returnUrl.IsLocalizedUrl(applicationPath, true))
+                {
+                    //already localized URL
+                    returnUrl = returnUrl.RemoveLanguageSeoCodeFromRawUrl(applicationPath);
+                }
+                returnUrl = returnUrl.AddLanguageSeoCodeToRawUrl(applicationPath, _currentActivity.CurrentLanguage);
+            }
+            return Redirect(returnUrl);
         }
 
         public ActionResult GenericUrl()

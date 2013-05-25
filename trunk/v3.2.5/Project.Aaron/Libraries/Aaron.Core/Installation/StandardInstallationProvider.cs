@@ -10,6 +10,10 @@ using Aaron.Core.Domain.Security;
 using Aaron.Core.Domain.Utilities;
 using Aaron.Core.Domain.Tasks;
 using Aaron.Core.Web;
+using System.IO;
+using Aaron.Core.Services.Localization;
+using System.Text;
+using Aaron.Core.Domain.Common;
 
 namespace Aaron.Core.Installation
 {
@@ -19,45 +23,95 @@ namespace Aaron.Core.Installation
         private readonly IRepository<EmailAccount> _emailAccountRepository;
         private readonly IRepository<Language> _languageRepository;
         private readonly IRepository<ScheduleTask> _scheduleTaskRepository;
+        private readonly IRepository<MessageTemplate> _messageTemplateRepository;
+        private readonly IWebHelper _webHelper;
 
         public StandardInstallationProvider(IRepository<AccountRole> accountRoleRepository,
             IRepository<EmailAccount> emailAccountRepository,
             IRepository<Language> languageRepository,
-            IRepository<ScheduleTask> scheduleTaskRepository)
+            IRepository<ScheduleTask> scheduleTaskRepository,
+            IRepository<MessageTemplate> messageTemplateRepository,
+            IWebHelper webHelper)
         {
             _accountRoleRepository = accountRoleRepository;
             _emailAccountRepository = emailAccountRepository;
             _languageRepository = languageRepository;
             _scheduleTaskRepository = scheduleTaskRepository;
-        }
-
-        private void InstallLanguages()
-        {
-            var language = new Language
-            {
-                Name = "English",
-                LanguageCulture = "en-US",
-                UniqueSeoCode = "en",
-                FlagImageFileName = "us.png",
-                Published = true,
-                DisplayOrder = 1
-            };
-            _languageRepository.Insert(language);
+            _webHelper = webHelper;
+            _messageTemplateRepository = messageTemplateRepository;
         }
 
         private void InstallEmailAccounts()
         {
             _emailAccountRepository.Insert(new EmailAccount()
             {
-                Email = "info@cdnvn.com",
-                DisplayName = "General email account",
-                Host = "stmp.mail.com",
+                Email = "info@domain.com",
+                DisplayName = "General contact",
+                Host = "smtp.mail.com",
                 Port = 25,
                 Username = "username",
                 Password = "password",
                 EnableSsl = false,
                 UseDefaultCredentials = false
             });
+        }
+
+        private void InstallLanguages()
+        {
+            var language = new Language
+            {
+                Name = "Vietnamese",
+                LanguageCulture = "vi-VN",
+                UniqueSeoCode = "vi",
+                FlagImageFileName = "vn.png",
+                Published = true,
+                DisplayOrder = 1
+            };
+            _languageRepository.Insert(language);
+        }
+
+        protected virtual void InstallLocaleResources()
+        {
+            //'Vietnamese' language
+            var language = _languageRepository.Table.Where(l => l.Name == "Vietnamese").Single();
+
+            //save resoureces
+            foreach (var filePath in System.IO.Directory.EnumerateFiles(_webHelper.MapPath("~/App_Data/Localization/"), "*.aaron.xml", SearchOption.TopDirectoryOnly))
+            {
+                //now we have a parsed XML file (the same structure as exported language packs)
+                //let's save resources
+                var localizationService = IoC.Resolve<ILocalizationService>();
+                using (var sr = new StreamReader(filePath, Encoding.UTF8))
+                {
+                    localizationService.ImportResourcesFromXml(language, sr.ReadToEnd());
+                }
+            }
+        }
+
+        protected virtual void InstallMessageTemplates()
+        {
+            var eaGeneral = _emailAccountRepository.Table.Where(ea => ea.DisplayName.Equals("General contact")).FirstOrDefault();
+            var messageTemplates = new List<MessageTemplate>
+            {
+                new MessageTemplate
+                {
+                    Name = "Account.EmailValidationMessage",
+                    Subject = "%Store.Name%. Email validation",
+                    Body = "<a href=\"%Store.URL%\">%Store.Name%</a>  <br />  <br />  To activate your account <a href=\"%Customer.AccountActivationURL%\">click here</a>.     <br />  <br />  %Store.Name%",
+                    IsActive = true,
+                    EmailAccountId = eaGeneral.Id,
+                },
+                new MessageTemplate
+                {
+                    Name = "Account.PasswordRecovery",
+                    Subject = "%Store.Name%. Password recovery",
+                    Body = "<a href=\"%Store.URL%\">%Store.Name%</a>  <br />  <br />  To change your password <a href=\"%Customer.PasswordRecoveryURL%\">click here</a>.     <br />  <br />  %Store.Name%",
+                    IsActive = true,
+                    EmailAccountId = eaGeneral.Id,
+                },
+            };
+
+            messageTemplates.ForEach(mt => _messageTemplateRepository.Insert(mt));
         }
 
         private void InstallSettings()
@@ -108,6 +162,12 @@ namespace Aaron.Core.Installation
                     WebUrl = "http://www.company.com"
                 });
 
+            IoC.Resolve<ISysConfigurationProvider<AdminAreaSettings>>()
+                .SaveSettings(new AdminAreaSettings()
+                {
+                    GridPageSize = 15
+                });
+
             IoC.Resolve<ISysConfigurationProvider<InstallSuccessPageSettings>>()
                 .SaveSettings(new InstallSuccessPageSettings()
                 {
@@ -123,7 +183,7 @@ namespace Aaron.Core.Installation
             IoC.Resolve<ISysConfigurationProvider<LocalizationSettings>>()
                 .SaveSettings(new LocalizationSettings()
                 {
-                    DefaultAdminLanguageId = _languageRepository.Table.Where(l => l.Name == "English").Single().Id,
+                    DefaultAdminLanguageId = _languageRepository.Table.Where(l => l.Name == "Vietnamese").Single().Id,
                     UseImagesForLanguageSelection = false,
                 });
 
@@ -153,7 +213,7 @@ namespace Aaron.Core.Installation
                     SitemapIncludeTopics = true,
                     DisplayJavaScriptDisabledWarning = false,
                     UseFullTextSearch = false,
-                    FullTextMode = FulltextSearchMode.ExactMatch,
+                    FullTextMode = Aaron.Core.Domain.Utilities.FulltextSearchMode.ExactMatch,
                 });
         }
 
@@ -217,7 +277,9 @@ namespace Aaron.Core.Installation
         {
             InstallAccountRole();
             InstallLanguages();
+            InstallLocaleResources();
             InstallEmailAccounts();
+            InstallMessageTemplates();
             InstallSettings();
             InstallScheduleTasks();
         }

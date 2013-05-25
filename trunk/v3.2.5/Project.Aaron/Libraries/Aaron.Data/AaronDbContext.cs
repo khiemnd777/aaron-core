@@ -9,8 +9,6 @@ using System.Data.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using StackExchange.Profiling;
-using StackExchange.Profiling.Data;
 using Aaron.Core;
 using Aaron.Core.Data;
 using Aaron.Core.Infrastructure;
@@ -42,13 +40,13 @@ namespace Aaron.Data
         /// </summary>
         /// <param name="connectionString">The connection string.</param>
         /// <returns></returns>
-        private static DbConnection InitialDbConnection(string connectionString)
-        {
-            var sqlConn = new SqlConnection(connectionString);
-            var efDbConn = new EFProfiledDbConnection(sqlConn, MiniProfiler.Current);
+        //private static DbConnection InitialDbConnection(string connectionString)
+        //{
+        //    var sqlConn = new SqlConnection(connectionString);
+        //    var efDbConn = new EFProfiledDbConnection(sqlConn, MiniProfiler.Current);
             
-            return efDbConn;
-        }
+        //    return efDbConn;
+        //}
 
         private void InitializeDbMapping(DbModelBuilder modelBuilder)
         {

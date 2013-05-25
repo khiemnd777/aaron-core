@@ -4,4 +4,9 @@
     {
         int LanguageId { get; set; }
     }
+
+    public class SEOLocalizedModelLocal : SEOEntityModel, ILocalizedModelLocal
+    {
+        public int LanguageId { get; set; }
+    }
 }

@@ -5,7 +5,6 @@
 @using Aaron.Core.Services.Accounts;
 @using Aaron.Core.Web;
 @using Aaron.Core.Web.UI;
-@using StackExchange.Profiling;
 @{
     var currentAccount = this.CurrentActivity.CurrentAccount;
     var currentVersion = string.Format("Aaron Source v{0}", AaronVersion.CurrentVersion);
@@ -103,6 +102,7 @@
                 </div>
             }
             <div class="content">
+                @Html.Partial("Notifications")
                 <div class="cph">
                     @RenderBody()
                 </div>
@@ -124,6 +124,5 @@
             )
     @Html.CssFiles(ResourceLocation.Foot)
     @Html.Scripts(ResourceLocation.Foot)
-    @MiniProfiler.RenderIncludes()
 </body>
 </html>
