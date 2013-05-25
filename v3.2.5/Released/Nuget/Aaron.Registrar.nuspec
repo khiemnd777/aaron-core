@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Aaron.Registrar</id>
-    <version>3.2.1.1</version>    
+    <version>3.2.1.5</version>    
     <description>It's a special architect (written base on C#) be used to build programs as web-app, windows-app; help your project become standardization. It provides the standard platform, including core systems, data flows and other utilities,... ready to serve a normal web-app (support Sqlserver, sqlce)...</description>
     <authors>Kandy Nguyen</authors>
     <tags>core dependency aaron architect</tags>

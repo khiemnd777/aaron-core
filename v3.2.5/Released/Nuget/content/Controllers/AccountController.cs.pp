@@ -7,7 +7,12 @@ using Aaron.Core.Domain.Accounts;
 using Aaron.Core.Services.Accounts;
 using Aaron.Core.Services.Authentication;
 using Aaron.Core;
-using $rootnamespace$.Models.Accounts;
+using Aaron.Core.Utility;
+using Aaron.Core.Services.Utilities;
+using Aaron.Core.Services.Messages;
+using Aaron.Core.Web.Controllers;
+using Aaron.Core.Services.Localization;
+using $rootnamespace$.Accounts;
 
 namespace $rootnamespace$.Controllers
 {
@@ -16,15 +21,123 @@ namespace $rootnamespace$.Controllers
         private readonly IAccountRegistrationService _accountRegistrationService;
         private readonly IAccountService _accountService;
         private readonly IAuthenticationService _authenticationService;
+        private readonly ICurrentActivity _currentActivity;
+        private readonly IGenericAttributeService _genericAttributeService;
+        private readonly IWorkflowMessageService _workflowMessageService;       	private readonly ILocalizationService _localizationService;
+        private readonly AccountSettings _accountSettings;
 
         public AccountController(IAccountRegistrationService accountRegistrationService,
             IAccountService accountService,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            IGenericAttributeService genericAttributeService,
+            ICurrentActivity currentActivity,
+            IWorkflowMessageService workflowMessageService,
+            AccountSettings accountSettings,
+            ILocalizationService localizationService)
         {
             _accountRegistrationService = accountRegistrationService;
             _accountService = accountService;
             _authenticationService = authenticationService;
+            _currentActivity = currentActivity;
+            _genericAttributeService = genericAttributeService;
+            _workflowMessageService = workflowMessageService;
+            _accountSettings = accountSettings;
+            _localizationService = localizationService;
         }
+
+        [NonAction]
+        public bool IsCurrentUserRegistered()
+        {
+            var account = _currentActivity.CurrentAccount;
+            return account != null && account.IsRegistered();
+        }
+
+        #region Password Recovery
+        public ActionResult PasswordRecovery()
+        {
+            var model = new PasswordRecoveryModel();
+            if (IsCurrentUserRegistered())
+                model.Email = _currentActivity.CurrentAccount.Email;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult PasswordRecovery(PasswordRecoveryModel model)
+        {
+            if (!CommonHelper.IsValidEmail(model.Email))
+                ModelState.AddModelError("", "Email không hợp lệ!");
+            if (ModelState.IsValid)
+            {
+                var account = _accountService.GetAccountByEmail(model.Email);
+                if (account != null && account.Active && !account.Deleted)
+                {
+                    var passwordRecoveryToken = Guid.NewGuid();
+                    _genericAttributeService.SaveAttribute(account, SystemAttributeNames.PasswordRecoveryToken, passwordRecoveryToken.ToString());
+                    _workflowMessageService.SendAccountPasswordRecoveryMessage(account, _currentActivity.CurrentLanguage.Id);
+
+                    model.Result = _localizationService.GetResource("Account.PasswordRecovery.EmailHasBeenSent"); //Hệ thống đã gửi một email chứa link phục hồi vào hồm thư của bạn. Xin kiểm tra hòm thư, và kích hoạt liên kết!
+                }
+                else
+                    model.Result = _localizationService.GetResource("Account.PasswordRecovery.EmailNotFound"); //Không tìm thấy tài khoản này, xin cung cấp một tài khoản email chính xác!
+            }
+            return View(model);
+        }
+
+        public ActionResult PasswordRecoveryConfirm(string token, string email)
+        {
+            var account = _accountService.GetAccountByEmail(email);
+            if (account == null)
+                return RedirectToRoute("HomePage");
+
+            var cPrt = account.GetAttribute<string>(SystemAttributeNames.PasswordRecoveryToken);
+            if (String.IsNullOrEmpty(cPrt))
+                return RedirectToRoute("HomePage");
+
+            if (!cPrt.Equals(token, StringComparison.InvariantCultureIgnoreCase))
+                return RedirectToRoute("HomePage");
+
+            var model = new PasswordRecoveryConfirmModel();
+            return View(model);
+        }
+
+        [HttpPost, ActionName("PasswordRecoveryConfirm")]
+        [FormValueRequired("set-password")]
+        public ActionResult PasswordRecoveryConfirmPOST(string token, string email, PasswordRecoveryConfirmModel model)
+        {
+            var account = _accountService.GetAccountByEmail(email);
+            if (account == null)
+                return RedirectToRoute("HomePage");
+
+            var cPrt = account.GetAttribute<string>(SystemAttributeNames.PasswordRecoveryToken);
+            if (String.IsNullOrEmpty(cPrt))
+                return RedirectToRoute("HomePage");
+
+            if (!cPrt.Equals(token, StringComparison.InvariantCultureIgnoreCase))
+                return RedirectToRoute("HomePage");
+
+            if (ModelState.IsValid)
+            {
+                var response = _accountRegistrationService.ChangePassword(new ChangePasswordRequest(email,
+                    false, _accountSettings.DefaultPasswordFormat, model.NewPassword));
+                if (response.Success)
+                {
+                    _genericAttributeService.SaveAttribute(account, SystemAttributeNames.PasswordRecoveryToken, "");
+
+                    model.SuccessfullyChanged = true;
+                    model.Result = _localizationService.GetResource("Account.PasswordRecovery.PasswordHasBeenChanged"); //Đã thay đổi mật khẩu thành công!
+                }
+                else
+                {
+                    model.Result = response.Errors.FirstOrDefault();
+                }
+
+                return View(model);
+            }
+
+            //If we got this far, something failed, redisplay form
+            return View(model);
+        } 
+        #endregion
 
         #region Log-in/Log-out
         public ActionResult LogIn()

@@ -2,7 +2,7 @@
 <package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Aaron.MVC</id>
-    <version>3.2.1.1</version>    
+    <version>3.2.1.5</version>    
     <description>Making your project better.</description>
     <authors>Kandy Nguyen</authors>
     <licenseUrl>http://aaroncore.codeplex.com/license</licenseUrl>
@@ -44,6 +44,7 @@
     <file src="..\Nuget\content\Administration\Views\EmailAccount\*" target="content\Administration\Views\EmailAccount\"/>
     <file src="..\Nuget\content\Administration\Views\ExternalAuthentication\*" target="content\Administration\Views\ExternalAuthentication\"/>
     <file src="..\Nuget\content\Administration\Views\GenericCatalog\*" target="content\Administration\Views\GenericCatalog\"/>
+    <file src="..\Nuget\content\Administration\Views\Language\*" target="content\Administration\Views\Language\"/>
     <file src="..\Nuget\content\Administration\Views\Home\*" target="content\Administration\Views\Home\"/>
     <file src="..\Nuget\content\Administration\Views\Log\*" target="content\Administration\Views\Log\"/>
     <file src="..\Nuget\content\Administration\Views\MessageTemplate\*" target="content\Administration\Views\MessageTemplate\"/>
@@ -57,6 +58,7 @@
     <file src="..\Nuget\content\Administration\Views\Topic\*" target="content\Administration\Views\Topic\"/>
     <file src="..\Nuget\content\Administration\Views\Widget\*" target="content\Administration\Views\Widget\"/>
     <file src="..\Nuget\content\App_Data\*" target="content\App_Data\"/>
+    <file src="..\Nuget\content\App_Data\Localization\*" target="content\App_Data\Localization\"/>
     <file src="..\Nuget\content\Content\*" target="content\Content\"/>
     <file src="..\Nuget\content\Content\editors\*" target="content\Content\editors\"/>
     <file src="..\Nuget\content\Content\editors\tinymce\**\*" target="content\Content\editors\tinymce\"/>
