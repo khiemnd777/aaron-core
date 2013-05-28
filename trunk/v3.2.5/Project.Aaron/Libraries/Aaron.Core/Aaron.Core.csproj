@@ -114,6 +114,7 @@
     <Compile Include="Domain\Common\FulltextSearchMode.cs" />
     <Compile Include="Domain\Common\Notice.cs" />
     <Compile Include="Domain\Common\PageTitleSeoAdjustment.cs" />
+    <Compile Include="Domain\Common\PdfSettings.cs" />
     <Compile Include="Domain\Common\SeoSettings.cs" />
     <Compile Include="Domain\Common\Template.cs" />
     <Compile Include="Domain\Configuration\Setting.cs" />
@@ -133,7 +134,9 @@
     <Compile Include="Domain\Messages\QueuedEmail.cs" />
     <Compile Include="Domain\Pages\Page.cs" />
     <Compile Include="Domain\Pages\PageAttribute.cs" />
+    <Compile Include="Domain\Security\AclRecord.cs" />
     <Compile Include="Domain\Security\DefaultPermissionRecord.cs" />
+    <Compile Include="Domain\Security\IAclSupported.cs" />
     <Compile Include="Domain\Security\PermissionRecord.cs" />
     <Compile Include="Domain\Security\SecuritySettings.cs" />
     <Compile Include="Domain\Tasks\ScheduleTask.cs" />
@@ -142,6 +145,9 @@
     <Compile Include="Domain\Utilities\GenericAttribute.cs" />
     <Compile Include="Domain\Utilities\UtilitySettings.cs" />
     <Compile Include="EnumExtensions.cs" />
+    <Compile Include="Events\EntityDeleted.cs" />
+    <Compile Include="Events\EntityInserted.cs" />
+    <Compile Include="Events\EntityUpdated.cs" />
     <Compile Include="Fakes\Extensions.cs" />
     <Compile Include="Fakes\FakeHttpContext.cs" />
     <Compile Include="Fakes\FakeHttpRequest.cs" />
@@ -149,6 +155,20 @@
     <Compile Include="Fakes\FakeHttpSessionState.cs" />
     <Compile Include="Fakes\FakeIdentity.cs" />
     <Compile Include="Fakes\FakePrincipal.cs" />
+    <Compile Include="Html\BBCodeHelper.cs" />
+    <Compile Include="Html\CodeFormatter\CLikeFormat.cs" />
+    <Compile Include="Html\CodeFormatter\CodeFormat.cs" />
+    <Compile Include="Html\CodeFormatter\CodeFormatHelper.cs" />
+    <Compile Include="Html\CodeFormatter\CSharpFormat.cs" />
+    <Compile Include="Html\CodeFormatter\HighlightOptions.cs" />
+    <Compile Include="Html\CodeFormatter\HtmlFormat.cs" />
+    <Compile Include="Html\CodeFormatter\JavaScriptFormat.cs" />
+    <Compile Include="Html\CodeFormatter\MshFormat.cs" />
+    <Compile Include="Html\CodeFormatter\SourceFormat.cs" />
+    <Compile Include="Html\CodeFormatter\TsqlFormat.cs" />
+    <Compile Include="Html\CodeFormatter\VisualBasicFormat.cs" />
+    <Compile Include="Html\HtmlHelper.cs" />
+    <Compile Include="Html\ResolveLinksHelper.cs" />
     <Compile Include="ICurrentActivity.cs" />
     <Compile Include="Infrastructure\AaronManager.cs" />
     <Compile Include="Infrastructure\AaronCore.cs" />
@@ -162,6 +182,14 @@
     <Compile Include="Infrastructure\DependencyManagement\DependencyAttribute.cs" />
     <Compile Include="Infrastructure\DependencyManagement\DependencyAttributeRegistrator.cs" />
     <Compile Include="Infrastructure\DependencyManagement\IDependencyRegistrar.cs" />
+    <Compile Include="Services\Events\EventPublisher.cs" />
+    <Compile Include="Services\Events\EventPublisherExtensions.cs" />
+    <Compile Include="Services\Events\IConsumer.cs" />
+    <Compile Include="Services\Events\IEventPublisher.cs" />
+    <Compile Include="Services\Events\ISubscriptionService.cs" />
+    <Compile Include="Services\Events\SubscriptionService.cs" />
+    <Compile Include="Services\Security\AclService.cs" />
+    <Compile Include="Services\Security\IAclService.cs" />
     <Compile Include="Web\ModelExtensions.cs" />
     <Compile Include="Web\Mvc\AaronDependencyResolver.cs" />
     <Compile Include="Infrastructure\EventBroker.cs" />
@@ -402,6 +430,7 @@
     <Compile Include="Web\IWebHelper.cs" />
     <Compile Include="Web\WebCurrentActivity.cs" />
     <Compile Include="Web\WebHelper.cs" />
+    <Compile Include="XmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

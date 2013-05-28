@@ -1,4 +1,5 @@
-﻿using Aaron.Core.SysConfiguration;
+﻿using System.Collections.Generic;
+using Aaron.Core.SysConfiguration;
 
 namespace Aaron.Core.Domain.Common
 {
@@ -10,5 +11,8 @@ namespace Aaron.Core.Domain.Common
         public string DefaultMetaKeywords { get; set; }
         public string DefaultMetaDescription { get; set; }
         public bool CanonicalUrlsEnabled { get; set; }
+        public bool AllowUnicodeCharsInUrls { get; set; }
+        public bool ConvertNonWesternChars { get; set; }
+        public List<string> ReservedUrlRecordSlugs { get; set; }
     }
 }
