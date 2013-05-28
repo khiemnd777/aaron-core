@@ -12,6 +12,11 @@ namespace Aaron.Core
             return source == null;
         }
 
+        public static bool IsNullOrDefault<T>(this T? value) where T : struct
+        {
+            return default(T).Equals(value.GetValueOrDefault());
+        }
+
         public static bool ToBoolean(this int source)
         {
             return (source == 1) ? true : false;
