@@ -44,6 +44,7 @@ using Aaron.Core.Web.UI;
 using Aaron.Core.Security;
 using Aaron.Core.Installation;
 using Aaron.Core.Plugins;
+using Aaron.Core.Web.EmbeddedViews;
 
 namespace Aaron.Registrar
 {
@@ -97,6 +98,9 @@ namespace Aaron.Registrar
             }
             else
                 builder.Register<IContext>(c => new AaronDbContext(dataSettingsManager.LoadSettings())).InstancePerHttpRequest();
+
+            // bind IEmbeddedViewResolver
+            builder.RegisterType<EmbeddedViewResolver>().As<IEmbeddedViewResolver>().SingleInstance();
 
             // bind IRouterPublisher
             builder.RegisterType<RouterPublisher>().As<IRouterPublisher>().SingleInstance();

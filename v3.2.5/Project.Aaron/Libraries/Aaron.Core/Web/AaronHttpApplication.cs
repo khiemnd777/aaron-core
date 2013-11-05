@@ -14,6 +14,9 @@ using System.Reflection;
 using Aaron.Core.Web.Mvc;
 using Aaron.Core.Domain.Common;
 using Aaron.Core.Services.Logging;
+using FluentValidation.Mvc;
+using Aaron.Core.Web.EmbeddedViews;
+using System.Web.Hosting;
 
 namespace Aaron.Core.Web
 {
@@ -89,6 +92,15 @@ namespace Aaron.Core.Web
             AreaRegistration.RegisterAllAreas();
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            //fluent validation
+            DataAnnotationsModelValidatorProvider.AddImplicitRequiredAttributeForValueTypes = false;
+            ModelValidatorProviders.Providers.Add(new FluentValidationModelValidatorProvider(new AaronValidatorFactory()));
+
+            //register virtual path provider for embedded views
+            var embeddedViewResolver = IoC.Resolve<IEmbeddedViewResolver>();
+            var embeddedProvider = new EmbeddedViewVirtualPathProvider(embeddedViewResolver.GetEmbeddedViews());
+            HostingEnvironment.RegisterVirtualPathProvider(embeddedProvider);
 
             if (databaseIsInstalled)
             {

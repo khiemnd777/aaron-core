@@ -12,6 +12,10 @@
     <AssemblyName>Aaron.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SccProjectName>Svn</SccProjectName>
+    <SccLocalPath>Svn</SccLocalPath>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccProvider>SubversionScc</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +49,12 @@
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.Mvc">
+      <HintPath>..\..\packages\FluentValidation.MVC3.5.0.0.1\lib\Net40\FluentValidation.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -190,6 +200,13 @@
     <Compile Include="Services\Events\SubscriptionService.cs" />
     <Compile Include="Services\Security\AclService.cs" />
     <Compile Include="Services\Security\IAclService.cs" />
+    <Compile Include="Web\AaronValidatorFactory.cs" />
+    <Compile Include="Web\EmbeddedViews\EmbeddedResourceVirtualFile.cs" />
+    <Compile Include="Web\EmbeddedViews\EmbeddedViewMetadata.cs" />
+    <Compile Include="Web\EmbeddedViews\EmbeddedViewResolver.cs" />
+    <Compile Include="Web\EmbeddedViews\EmbeddedViewTable.cs" />
+    <Compile Include="Web\EmbeddedViews\EmbeddedViewVirtualPathProvider.cs" />
+    <Compile Include="Web\EmbeddedViews\IEmbeddedViewResolver.cs" />
     <Compile Include="Web\ModelExtensions.cs" />
     <Compile Include="Web\Mvc\AaronDependencyResolver.cs" />
     <Compile Include="Infrastructure\EventBroker.cs" />
