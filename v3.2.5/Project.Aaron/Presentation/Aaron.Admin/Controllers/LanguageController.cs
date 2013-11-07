@@ -56,18 +56,10 @@ namespace Aaron.Admin.Controllers
                 return AccessDeniedView();
 
             var languages = _languageService.GetAllLanguages(true);
+            
             var gridModel = new GridModel<LanguageModel>
             {
-                Data = languages.Select(x => new LanguageModel{
-                    DisplayOrder = x.DisplayOrder,
-                    FlagImageFileName = x.FlagImageFileName,
-                    Id = x.Id,
-                    LanguageCulture = x.LanguageCulture,
-                    Name = x.Name,
-                    Published = x.Published,
-                    Rtl = x.Rtl,
-                    UniqueSeoCode = x.UniqueSeoCode
-                }),
+                Data = languages.Select(x => x.ToModel()),
                 Total = languages.Count()
             };
             return View(gridModel);
@@ -82,17 +74,7 @@ namespace Aaron.Admin.Controllers
             var languages = _languageService.GetAllLanguages(true);
             var gridModel = new GridModel<LanguageModel>
             {
-                Data = languages.Select(x => new LanguageModel
-                {
-                    DisplayOrder = x.DisplayOrder,
-                    FlagImageFileName = x.FlagImageFileName,
-                    Id = x.Id,
-                    LanguageCulture = x.LanguageCulture,
-                    Name = x.Name,
-                    Published = x.Published,
-                    Rtl = x.Rtl,
-                    UniqueSeoCode = x.UniqueSeoCode
-                }),
+                Data = languages.Select(x => x.ToModel()),
                 Total = languages.Count()
             };
             return new JsonResult
@@ -120,16 +102,7 @@ namespace Aaron.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                var language = new Language
-                {
-                    DisplayOrder = model.DisplayOrder,
-                    FlagImageFileName = model.FlagImageFileName,
-                    LanguageCulture = model.LanguageCulture,
-                    Name = model.Name,
-                    Published = model.Published,
-                    Rtl = model.Rtl,
-                    UniqueSeoCode = model.UniqueSeoCode
-                };
+                var language = model.ToEntity();
                 _languageService.InsertLanguage(language);
 
                 SuccessNotification(_localizationService.GetResource("Admin.Configuration.Languages.Added"));
@@ -152,17 +125,7 @@ namespace Aaron.Admin.Controllers
 
             //set page timeout to 5 minutes
             this.Server.ScriptTimeout = 300;
-            var model = new LanguageModel
-            {
-                DisplayOrder = language.DisplayOrder,
-                FlagImageFileName = language.FlagImageFileName,
-                Id = language.Id,
-                LanguageCulture = language.LanguageCulture,
-                Name = language.Name,
-                Published = language.Published,
-                Rtl = language.Rtl,
-                UniqueSeoCode = language.UniqueSeoCode
-            };
+            var model = language.ToModel();
             return View(model);
         }
 
@@ -188,13 +151,7 @@ namespace Aaron.Admin.Controllers
                     return RedirectToAction("Edit", new { id = language.Id });
                 }
                 //update
-                language.DisplayOrder = model.DisplayOrder;
-                language.FlagImageFileName = model.FlagImageFileName;
-                language.LanguageCulture = model.LanguageCulture;
-                language.Name = model.Name;
-                language.Published = model.Published;
-                language.Rtl = model.Rtl;
-                language.UniqueSeoCode = model.UniqueSeoCode;
+                language = model.ToEntity(language);
                 
                 _languageService.UpdateLanguage(language);
 
