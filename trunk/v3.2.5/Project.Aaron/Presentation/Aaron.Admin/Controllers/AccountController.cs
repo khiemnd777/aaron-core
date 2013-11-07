@@ -56,7 +56,7 @@ namespace Aaron.Admin.Controllers
             return new AccountListModel()
             {
                 Id = account.Id,
-                Email = !String.IsNullOrEmpty(account.Email) ? account.Email : (account.IsGuest() ? "Khách" : "Unknown"),
+                Email = !String.IsNullOrEmpty(account.Email) ? account.Email : (account.IsGuest() ? _localizationService.GetResource("Guest") : _localizationService.GetResource("Unknown")),
                 AccountRoleNames = GetAccountRolesNames(account.AccountRoles.ToList()),
                 Active = account.Active,
                 CreationDate = account.CreatedOnUtc,
@@ -83,7 +83,7 @@ namespace Aaron.Admin.Controllers
         //
         // GET: /Account/
 
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.DisplayAccounts))
                 return AccessDeniedView();
@@ -91,7 +91,7 @@ namespace Aaron.Admin.Controllers
             return RedirectToAction("List");
         }
 
-        public ActionResult List()
+        public virtual ActionResult List()
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.DisplayAccounts))
                 return AccessDeniedView();
@@ -106,7 +106,7 @@ namespace Aaron.Admin.Controllers
         }
 
         [HttpPost, GridAction]
-        public ActionResult List(GridCommand command)
+        public virtual ActionResult List(GridCommand command)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.DisplayAccounts))
                 return AccessDeniedView();
@@ -126,7 +126,7 @@ namespace Aaron.Admin.Controllers
             };
         }
 
-        public ActionResult Edit(int id)
+        public virtual ActionResult Edit(int id)
         {
             var account = _accountService.GetAccountById(id);
             if (account == null || account.Deleted)
@@ -160,7 +160,7 @@ namespace Aaron.Admin.Controllers
 
         [HttpPost]
         [FormValueRequired("save")]
-        public ActionResult Edit(AccountModel model)
+        public virtual ActionResult Edit(AccountModel model)
         {
             var account = _accountService.GetAccountById(model.Id);
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageAccounts) &&
@@ -218,7 +218,7 @@ namespace Aaron.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public virtual ActionResult Delete(int id)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageAccounts))
                 return AccessDeniedView();
@@ -239,7 +239,7 @@ namespace Aaron.Admin.Controllers
             }
         }
 
-        public ActionResult Create()
+        public virtual ActionResult Create()
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageAccounts))
                 return AccessDeniedView();
@@ -263,7 +263,7 @@ namespace Aaron.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(AccountModel model)
+        public virtual ActionResult Create(AccountModel model)
         {
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageAccounts))
                 return AccessDeniedView();
@@ -342,36 +342,24 @@ namespace Aaron.Admin.Controllers
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageAccounts))
                 return AccessDeniedView();
 
-            if (string.IsNullOrWhiteSpace(model.ChangePassword))
-            {
-                ModelState.AddModelError("", "Mật khẩu không được để trống!");
-            }
-
             var account = _accountService.GetAccountById(model.Id);
             if (account == null)
-                
+                //No account found with the specified id
                 return RedirectToAction("List");
 
             if (ModelState.IsValid)
             {
                 var changePassRequest = new ChangePasswordRequest(model.Email,
-                    false, _accountSettings.DefaultPasswordFormat, model.ChangePassword);
+                    false, _accountSettings.DefaultPasswordFormat, model.Password);
                 var changePassResult = _accountRegistrationService.ChangePassword(changePassRequest);
-                return RedirectToAction("Edit", account.Id);   
+                if (changePassResult.Success)
+                    SuccessNotification(_localizationService.GetResource("Admin.Accounts.Accounts.PasswordChanged"));
+                else
+                    foreach (var error in changePassResult.Errors)
+                        ErrorNotification(error);
             }
-            model.Email = account.Email;
-            model.AvailableAccountRoles = _accountService
-               .GetAllAccountRoles(true)
-               .Select(entity => new AccountRoleModel()
-               {
-                   Id = entity.Id,
-                   Active = entity.Active,
-                   IsSystemRole = entity.IsSystemRole,
-                   Name = entity.Name,
-                   SystemName = entity.SystemName
-               })
-               .ToList();
-            return View(model);
+
+            return RedirectToAction("Edit", account.Id);
         }
 
         public ActionResult Online()
@@ -389,7 +377,7 @@ namespace Aaron.Admin.Controllers
                     return new OnlineAccountModel()
                     {
                         Id = x.Id,
-                        AccountInfo = x.IsRegistered() ? x.Email : "Khách",
+                        AccountInfo = x.IsRegistered() ? x.Email : _localizationService.GetResource("Guest"),
                         Location = _geoCountryLookup.LookupCountryName(x.LastIpAddress),
                         LastIpAddress = x.LastIpAddress,
                         LastActivityDate = _dateTimeHelper.ConvertToUserTime(x.LastActivityDateUtc, DateTimeKind.Utc),
@@ -416,7 +404,7 @@ namespace Aaron.Admin.Controllers
                     return new OnlineAccountModel()
                     {
                         Id = x.Id,
-                        AccountInfo = x.IsRegistered() ? x.Email : "Khách",
+                        AccountInfo = x.IsRegistered() ? x.Email : _localizationService.GetResource("Guest"),
                         Location = _geoCountryLookup.LookupCountryName(x.LastIpAddress),
                         LastIpAddress = x.LastIpAddress,
                         LastActivityDate = _dateTimeHelper.ConvertToUserTime(x.LastActivityDateUtc, DateTimeKind.Utc),
