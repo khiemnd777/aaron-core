@@ -51,5 +51,7 @@
         public static string WorkingDesktopThemeName { get { return "WorkingDesktopThemeName"; } }
 
         public static string ImpersonatedAccountId { get { return "ImpersonatedAccountId"; } }
+
+        public static string DontUseMobileVersion { get { return "DontUseMobileVersion"; } }
     }
 }
