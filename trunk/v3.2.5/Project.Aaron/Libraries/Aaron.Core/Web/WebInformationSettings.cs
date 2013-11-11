@@ -37,26 +37,21 @@ namespace Aaron.Core.Web
         /// <summary>
         /// Gets or sets a value indicating whether mobile devices supported
         /// </summary>
-        //public bool MobileDevicesSupported { get; set; }
+        public bool MobileDevicesSupported { get; set; }
 
         /// <summary>
         /// Gets or sets a default Web theme used by mobile devices (if enabled)
         /// </summary>
-        //public string DefaultWebThemeForMobileDevices { get; set; }
+        public string DefaultWebThemeForMobileDevices { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether all requests will be handled as mobile devices (used for testing)
         /// </summary>
-        //public bool EmulateMobileDevice { get; set; }
+        public bool EmulateMobileDevice { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether mini profiler should be displayed in public Web (used for debugging)
         /// </summary>
         public bool UseMiniProfiler { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether we should display warnings about the new EU cookie law
-        /// </summary>
-        //public bool DisplayEuCookieLawWarning { get; set; }
     }
 }
