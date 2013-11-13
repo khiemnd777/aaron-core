@@ -10,7 +10,7 @@ namespace Aaron.Core.Data
         int SaveChanges();
         DbEntityEntry Entry<TEntity>(TEntity entity) where TEntity : BaseEntity;
         IList<TEntity> ExecuteStoredProcedureList<TEntity>(string commandText, params object[] parameters)
-            where TEntity : BaseEntity, new();
+            where TEntity : BaseEntity<int>, new();
         IEnumerable<TElement> SqlQuery<TElement>(string sql, params object[] parameters);
         int ExecuteSqlCommand(string sql, int? timeout = null, params object[] parameters);
     }

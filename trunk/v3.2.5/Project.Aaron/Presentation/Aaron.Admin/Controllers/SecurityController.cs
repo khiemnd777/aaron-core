@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Aaron.Core;
 using Aaron.Core.Services.Accounts;
 using Aaron.Core.Services.Security;
+using Aaron.Core.Services.Localization;
 using Aaron.Core.Web.Security;
 using Aaron.Admin.Models.Accounts;
 using Aaron.Admin.Models.Security;
@@ -18,14 +19,17 @@ namespace Aaron.Admin.Controllers
         private readonly IPermissionService _permissionService;
         private readonly IAccountService _accountService;
         private readonly ICurrentActivity _currentActivity;
+        private readonly ILocalizationService _localizationService;
 
         public SecurityController(IPermissionService permissionService,
             IAccountService accountService,
-            ICurrentActivity currentActivity)
+            ICurrentActivity currentActivity,
+            ILocalizationService localizationService)
         {
             _permissionService = permissionService;
             _accountService = accountService;
             _currentActivity = currentActivity;
+            _localizationService = localizationService;
         }
 
         public ActionResult AccessDenied(string pageUrl)
@@ -55,7 +59,7 @@ namespace Aaron.Admin.Controllers
             {
                 model.AvailablePermissions.Add(new PermissionRecordModel()
                 {
-                    Name = pr.Name,
+                    Name = _localizationService.GetResource(pr.Name),
                     SystemName = pr.SystemName
                 });
             }

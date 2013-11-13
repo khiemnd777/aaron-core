@@ -43,10 +43,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aaron.Registrar, Version=3.2.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Libraries\Aaron.Registrar\obj\Debug\Aaron.Registrar.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac, Version=2.6.3.862, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
@@ -172,6 +168,10 @@
     <ProjectReference Include="..\..\Libraries\Aaron.Core\Aaron.Core.csproj">
       <Project>{a00c5e93-2ae4-447e-b251-70f0a03b7c7a}</Project>
       <Name>Aaron.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Libraries\Aaron.Registrar\Aaron.Registrar.csproj">
+      <Project>{e8df6e88-a9fb-46a4-baa1-14061dad9211}</Project>
+      <Name>Aaron.Registrar</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

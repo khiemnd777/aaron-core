@@ -41,6 +41,12 @@
     <Reference Include="AutoMapper.Net4">
       <HintPath>..\..\packages\AutoMapper.3.0.0\lib\net40\AutoMapper.Net4.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\packages\FluentValidation.5.0.0.1\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation.Mvc">
+      <HintPath>..\..\packages\FluentValidation.MVC3.5.0.0.1\lib\Net40\FluentValidation.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -81,6 +87,7 @@
     <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\EmailAccountController.cs" />
     <Compile Include="Controllers\ExternalAuthenticationController.cs" />
     <Compile Include="Controllers\GenericCatalogController.cs" />
@@ -115,6 +122,8 @@
     <Compile Include="Models\Common\DropDownListModel.cs" />
     <Compile Include="Models\Common\NoticeModel.cs" />
     <Compile Include="Models\Common\SEOModel.cs" />
+    <Compile Include="Models\Directory\CountryModel.cs" />
+    <Compile Include="Models\Directory\StateProvinceModel.cs" />
     <Compile Include="Models\ExternalAuthentication\AuthenticationMethodModel.cs" />
     <Compile Include="Models\Localization\LanguageModel.cs" />
     <Compile Include="Models\Localization\LanguageResourceModel.cs" />
@@ -138,6 +147,8 @@
     <Compile Include="Models\Settings\WebInformationSettingsModel.cs" />
     <Compile Include="Models\Topics\TopicModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validators\Directory\CountryValidator.cs" />
+    <Compile Include="Validators\Directory\StateProvinceValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\2013.1.219\Black\editor.png" />
@@ -427,6 +438,7 @@
     <EmbeddedResource Include="App_GlobalResources\UploadLocalization.ru-RU.resx" />
     <EmbeddedResource Include="App_GlobalResources\UploadLocalization.zh-CN.resx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
