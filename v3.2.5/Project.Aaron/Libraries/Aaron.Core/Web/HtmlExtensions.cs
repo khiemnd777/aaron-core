@@ -191,7 +191,7 @@ namespace Aaron.Core.Web
 
         public static MvcHtmlString Widget(this HtmlHelper helper, string widgetZone)
         {
-            return helper.Action("WidgetsByZone", "WidgetClient", new { widgetZone = widgetZone });
+            return helper.Action("WidgetsByZone", "Widget", new { widgetZone = widgetZone });
         }
 
         public static MvcHtmlString AaronLabelFor<TModel, TValue>(this HtmlHelper<TModel> helper, Expression<Func<TModel, TValue>> expression, bool displayHint = true)
