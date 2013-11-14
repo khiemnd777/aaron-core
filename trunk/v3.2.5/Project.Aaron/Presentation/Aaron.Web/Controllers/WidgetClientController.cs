@@ -6,7 +6,7 @@ using Aaron.Web.Models.Cms;
 
 namespace Aaron.Web.Controllers
 {
-    public partial class WidgetClientController : BaseController
+    public partial class WidgetController : BaseController
     {
 		#region Fields
 
