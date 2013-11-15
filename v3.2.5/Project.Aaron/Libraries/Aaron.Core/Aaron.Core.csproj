@@ -158,6 +158,7 @@
     <Compile Include="Domain\Utilities\FulltextSearchMode.cs" />
     <Compile Include="Domain\Utilities\GenericAttribute.cs" />
     <Compile Include="Domain\Utilities\UtilitySettings.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="EnumExtensions.cs" />
     <Compile Include="Events\EntityDeleted.cs" />
     <Compile Include="Events\EntityInserted.cs" />
@@ -387,6 +388,7 @@
     <Compile Include="Web\Mvc\XmlDownloadResult.cs" />
     <Compile Include="Web\Routes\IRouterProvider.cs" />
     <Compile Include="Web\Routes\IRouterPublisher.cs" />
+    <Compile Include="Web\Routes\RouteExtensions.cs" />
     <Compile Include="Web\Routes\RouterPublisher.cs" />
     <Compile Include="Web\Security\AdminAuthorizeAttribute.cs" />
     <Compile Include="Web\SEOEntityModel.cs" />

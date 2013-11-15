@@ -11,7 +11,7 @@ namespace Aaron.Core.Data
         protected const string filename = "Connection.cfg";
         protected const string provider = "Provider";
         protected const string connectionString = "ConnectionString";
-
+        private int separatorLength = separator.Length;
         /// <summary>
         /// Maps a virtual path to a physical disk path.
         /// </summary>
@@ -57,7 +57,7 @@ namespace Aaron.Core.Data
                     continue;
                 }
                 string key = setting.Substring(0, separatorIndex).Trim();
-                string value = setting.Substring(separatorIndex + 1).Trim();
+                string value = setting.Substring(separatorIndex + separatorLength).Trim();
 
                 switch (key)
                 {
