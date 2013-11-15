@@ -19,7 +19,7 @@ namespace Aaron.Core.Data
             if (!_hasSettingsFileOrNotNull.HasValue)
             {
                 var settings = IoC.Resolve<DataSettings>();
-                _hasSettingsFileOrNotNull = settings != null && !String.IsNullOrEmpty(settings.DataConnectionString);
+                _hasSettingsFileOrNotNull = settings != null && !String.IsNullOrEmpty(settings.ConnectionString);
             }
             return _hasSettingsFileOrNotNull.Value;
         }
@@ -53,8 +53,8 @@ namespace Aaron.Core.Data
 
             var settings = new DataSettings() 
             { 
-                DataConnectionString = _connectionString,
-                DataProvider = provider
+                ConnectionString = _connectionString,
+                Provider = provider
             };
 
             var settingsManager = new DataSettingsManager();
@@ -79,7 +79,7 @@ namespace Aaron.Core.Data
 
             var settings = IoC.Resolve<DataSettings>();
 
-            var builder = new SqlConnectionStringBuilder(connectionString ?? settings.DataConnectionString);
+            var builder = new SqlConnectionStringBuilder(connectionString ?? settings.ConnectionString);
             var dbName = builder.InitialCatalog;
             builder.InitialCatalog = "master";
             var masterCatalogConnectionString = builder.ToString();
@@ -109,7 +109,7 @@ namespace Aaron.Core.Data
             if (!_databaseIsExisted.HasValue)
             {
                 var settings = IoC.Resolve<DataSettings>();
-                using (var conn = new SqlConnection(settings.DataConnectionString))
+                using (var conn = new SqlConnection(settings.ConnectionString))
                 {
                     try
                     {
@@ -131,7 +131,7 @@ namespace Aaron.Core.Data
             if (!_tableIsExisted.HasValue)
             {
                 var settings = IoC.Resolve<DataSettings>();
-                using (var conn = new SqlConnection(settings.DataConnectionString))
+                using (var conn = new SqlConnection(settings.ConnectionString))
                 {
                     try
                     {

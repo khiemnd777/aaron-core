@@ -9,13 +9,13 @@ namespace Aaron.Core.Data
         {
             RawDataSettings = new Dictionary<string, string>();
         }
-        public string DataProvider { get; set; }
-        public string DataConnectionString { get; set; }
+        public string Provider { get; set; }
+        public string ConnectionString { get; set; }
         public IDictionary<string, string> RawDataSettings { get; private set; }
 
         public bool IsValid()
         {
-            return !String.IsNullOrEmpty(this.DataProvider) && !String.IsNullOrEmpty(this.DataConnectionString);
+            return !String.IsNullOrEmpty(this.Provider) && !String.IsNullOrEmpty(this.ConnectionString);
         }
     }
 }

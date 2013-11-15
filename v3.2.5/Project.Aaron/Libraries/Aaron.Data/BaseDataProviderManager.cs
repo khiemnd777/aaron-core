@@ -14,7 +14,7 @@ namespace Aaron.Data
 
         public override IDataProvider LoadDataProvider()
         {
-            var providerName = Settings.DataProvider;
+            var providerName = Settings.Provider;
             if (String.IsNullOrWhiteSpace(providerName))
                 throw new Exception("Data Settings doesn't contain a providerName");
 

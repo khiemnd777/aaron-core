@@ -7,10 +7,10 @@ namespace Aaron.Core.Data
 {
     public partial class DataSettingsManager
     {
-        protected const char separator = ':';
-        protected const string filename = "Settings.txt";
-        protected const string dataProvider = "DataProvider";
-        protected const string dataConnectionString = "DataConnectionString";
+        protected const string separator = "->";
+        protected const string filename = "Connection.cfg";
+        protected const string provider = "Provider";
+        protected const string connectionString = "ConnectionString";
 
         /// <summary>
         /// Maps a virtual path to a physical disk path.
@@ -61,11 +61,11 @@ namespace Aaron.Core.Data
 
                 switch (key)
                 {
-                    case dataProvider:
-                        shellSettings.DataProvider = value;
+                    case provider:
+                        shellSettings.Provider = value;
                         break;
-                    case dataConnectionString:
-                        shellSettings.DataConnectionString = value;
+                    case connectionString:
+                        shellSettings.ConnectionString = value;
                         break;
                     default:
                         shellSettings.RawDataSettings.Add(key, value);
@@ -82,10 +82,10 @@ namespace Aaron.Core.Data
                 return "";
 
             return string.Format("{2}{4}{0}{5}{3}{4}{1}{5}", new object[]{
-                                 settings.DataProvider,
-                                 settings.DataConnectionString,
-                                 dataProvider,
-                                 dataConnectionString,
+                                 settings.Provider,
+                                 settings.ConnectionString,
+                                 provider,
+                                 connectionString,
                                  separator,
                                  Environment.NewLine
                                  }
