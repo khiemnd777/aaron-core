@@ -16,7 +16,7 @@ namespace Aaron.Web.Controllers
 
 		#region Constructors
 
-        public WidgetClientController(IWidgetService widgetService)
+        public WidgetController(IWidgetService widgetService)
         {
             this._widgetService = widgetService;
         }

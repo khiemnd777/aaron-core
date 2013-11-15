@@ -31,7 +31,7 @@ namespace Aaron.Data
         //}
 
         public AaronDbContext(DataSettings settings)
-            : base(settings.DataConnectionString)
+            : base(settings.ConnectionString)
         {
 
         }
