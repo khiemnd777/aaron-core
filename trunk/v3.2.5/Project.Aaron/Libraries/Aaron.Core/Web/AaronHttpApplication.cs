@@ -40,24 +40,8 @@ namespace Aaron.Core.Web
             
             var router = IoC.Resolve<IRouterPublisher>();
             router.RegisterRoutes(routes);
-
-            var nameOfWebAssembly = string.Empty;
-            var typeFinder = IoC.Resolve<ITypeFinder>();
-            var assemblies = typeFinder.GetAssemblies().ToList();
-            assemblies.ForEach(a => 
-            {
-                foreach (var t in a.GetTypes())
-                    if (!"Aaron.Admin".Equals(a.GetName().Name) && ("AccountController".Equals(t.Name) || "HomeController".Equals(t.Name)))
-                        nameOfWebAssembly = a.GetName().Name;
-            });
-
             // default
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                new[] { nameOfWebAssembly + ".Controllers" }
-                );
+            routes.Default();
         }
 
         public virtual void CustomApplication_Start(){}
