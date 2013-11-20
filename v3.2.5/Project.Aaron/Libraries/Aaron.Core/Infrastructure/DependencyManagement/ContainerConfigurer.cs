@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Aaron.Core.SysConfiguration;
 using Aaron.Core.Utility;
 
 namespace Aaron.Core.Infrastructure.DependencyManagement

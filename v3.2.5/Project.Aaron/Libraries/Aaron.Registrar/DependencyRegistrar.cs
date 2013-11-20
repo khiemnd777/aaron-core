@@ -241,8 +241,8 @@ namespace Aaron.Registrar
             get { return false; }
         }
 
-        public IEnumerable<IComponentRegistration> RegistrationsFor(Autofac.Core.Service service,
-            Func<Autofac.Core.Service, IEnumerable<IComponentRegistration>> registrationAccessor)
+        public IEnumerable<IComponentRegistration> RegistrationsFor(Service service,
+            Func<Service, IEnumerable<IComponentRegistration>> registrationAccessor)
         {
             var ts = service as TypedService;
             if (ts != null && typeof(IServices).IsAssignableFrom(ts.ServiceType) && ts.ServiceType.IsInterface)

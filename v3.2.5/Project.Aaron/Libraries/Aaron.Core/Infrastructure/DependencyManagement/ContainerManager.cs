@@ -177,7 +177,6 @@ namespace Aaron.Core.Infrastructure.DependencyManagement
             var builder = new ContainerBuilder();
             action.Invoke(builder);
             builder.Update(_container);
-            //_containerBuilder.Update(_container);
         }
 
         public ILifetimeScope Scope()
